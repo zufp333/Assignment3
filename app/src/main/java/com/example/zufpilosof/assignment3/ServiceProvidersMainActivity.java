@@ -32,7 +32,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     private DatabaseReference mAllServicesRef;
     private DatabaseReference mMyUserRef;
 
-    private List<ServiceProviderWithKey> songsList = new ArrayList<>();
+    private List<ServiceProviderWithKey> mServiceProvidersList = new ArrayList<>();
 
     private RecyclerView mRecyclerView;
     private ServiceProviderAdapter mServiceProviderAdapter;
@@ -45,10 +45,10 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         Log.e(TAG, "onCreate() >>");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_player_main);
+        setContentView(R.layout.activity_service_providers_main);
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.songs_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.service_providers_list);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -90,8 +90,8 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     private void getAllSongs() {
 
 
-        songsList.clear();
-        mServiceProviderAdapter = new com.yanivshani.advancedmusicplayer2.adapter.SongsAdapter(songsList, mMyUser);
+        mServiceProvidersList.clear();
+        mServiceProviderAdapter = new com.yanivshani.advancedmusicplayer2.adapter.SongsAdapter(mServiceProvidersList, mMyUser);
         mRecyclerView.setAdapter(mServiceProviderAdapter);
 
         //getAllSongsUsingValueListenrs();
@@ -133,7 +133,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 Log.e(TAG, "onChildAdded(Songs) >> " + snapshot.getKey());
 
                 com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = new com.yanivshani.advancedmusicplayer2.adapter.SongWithKey(snapshot.getKey(),snapshot.getValue(Song.class));
-                songsList.add(songWithKey);
+                mServiceProvidersList.add(songWithKey);
                 mRecyclerView.getAdapter().notifyDataSetChanged();
 
                 Log.e(TAG, "onChildAdded(Songs) <<");
@@ -147,8 +147,8 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 Song song =snapshot.getValue(Song.class);
                 String key = snapshot.getKey();
 
-                for (int i = 0 ; i < songsList.size() ; i++) {
-                    com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = (com.yanivshani.advancedmusicplayer2.adapter.SongWithKey) songsList.get(i);
+                for (int i = 0; i < mServiceProvidersList.size() ; i++) {
+                    com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = (com.yanivshani.advancedmusicplayer2.adapter.SongWithKey) mServiceProvidersList.get(i);
                     if (songWithKey.getKey().equals(snapshot.getKey())) {
                         songWithKey.setSong(song);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -176,10 +176,10 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 Song song =snapshot.getValue(Song.class);
                 String key = snapshot.getKey();
 
-                for (int i = 0 ; i < songsList.size() ; i++) {
-                    com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = (com.yanivshani.advancedmusicplayer2.adapter.SongWithKey) songsList.get(i);
+                for (int i = 0; i < mServiceProvidersList.size() ; i++) {
+                    com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = (com.yanivshani.advancedmusicplayer2.adapter.SongWithKey) mServiceProvidersList.get(i);
                     if (songWithKey.getKey().equals(snapshot.getKey())) {
-                        songsList.remove(i);
+                        mServiceProvidersList.remove(i);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
                         Log.e(TAG, "onChildRemoved(Songs) >> i="+i);
                         break;
@@ -205,7 +205,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
             Song song = dataSnapshot.getValue(Song.class);
             Log.e(TAG, "updateSongList() >> adding song: " + song.getName());
             String key = dataSnapshot.getKey();
-            songsList.add(new com.yanivshani.advancedmusicplayer2.adapter.SongWithKey(key,song));
+            mServiceProvidersList.add(new com.yanivshani.advancedmusicplayer2.adapter.SongWithKey(key,song));
         }
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
@@ -220,7 +220,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
         Log.e(TAG, "onSearchButtonClick() >> searchString="+searchString+ ",orderBy="+orderBy);
 
-        songsList.clear();
+        mServiceProvidersList.clear();
 
         if (searchString != null && !searchString.isEmpty()) {
             searchSong = mAllServicesRef.orderByChild("name").startAt(searchString).endAt(searchString + "\uf8ff");
