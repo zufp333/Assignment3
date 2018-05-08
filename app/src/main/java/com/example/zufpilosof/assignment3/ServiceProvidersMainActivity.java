@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.example.zufpilosof.assignment3.model.ServiceProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -91,17 +92,17 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
 
         mServiceProvidersList.clear();
-        mServiceProviderAdapter = new com.yanivshani.advancedmusicplayer2.adapter.SongsAdapter(mServiceProvidersList, mMyUser);
+        mServiceProviderAdapter = new com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter(mServiceProvidersList, mMyUser);
         mRecyclerView.setAdapter(mServiceProviderAdapter);
 
-        //getAllSongsUsingValueListenrs();
+        //getAllServiceProvidersUsingValueListenrs(); fix
         getAllSongsUsingChildListenrs();
 
 
     }
-    private void getAllSongsUsingValueListenrs() {
+    private void getAllServiceProvidersUsingValueListenrs() {
 
-        mAllServicesRef = FirebaseDatabase.getInstance().getReference("Songs");
+        mAllServicesRef = FirebaseDatabase.getInstance().getReference("service_providers");
 
         mAllServicesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,7 +110,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onDataChange(Songs) >> " + snapshot.getKey());
 
-                updateSongsList(snapshot);
+                updateServiceProvidersList(snapshot);
 
                 Log.e(TAG, "onDataChange(Songs) <<");
 
@@ -118,94 +119,94 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                Log.e(TAG, "onCancelled(Songs) >>" + databaseError.getMessage());
+                Log.e(TAG, "onCancelled(service_providers) >>" + databaseError.getMessage());
             }
         });
     }
     private void getAllSongsUsingChildListenrs() {
 
-        mAllServicesRef = FirebaseDatabase.getInstance().getReference("Songs");
+        mAllServicesRef = FirebaseDatabase.getInstance().getReference("service_providers");
 
         mAllServicesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName){
 
-                Log.e(TAG, "onChildAdded(Songs) >> " + snapshot.getKey());
+                Log.e(TAG, "onChildAdded(service_providers) >> " + snapshot.getKey());
 
-                com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = new com.yanivshani.advancedmusicplayer2.adapter.SongWithKey(snapshot.getKey(),snapshot.getValue(Song.class));
-                mServiceProvidersList.add(songWithKey);
+                com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = new com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey(snapshot.getKey(),snapshot.getValue(ServiceProvider.class));
+                mServiceProvidersList.add(serviceProviderWithKey);
                 mRecyclerView.getAdapter().notifyDataSetChanged();
 
-                Log.e(TAG, "onChildAdded(Songs) <<");
+                Log.e(TAG, "onChildAdded(service_providers) <<");
 
             }
             @Override
             public void onChildChanged(DataSnapshot snapshot, String previousChildName){
 
-                Log.e(TAG, "onChildChanged(Songs) >> " + snapshot.getKey());
+                Log.e(TAG, "onChildChanged(service_providers) >> " + snapshot.getKey());
 
-                Song song =snapshot.getValue(Song.class);
+                ServiceProvider song =snapshot.getValue(ServiceProvider.class);
                 String key = snapshot.getKey();
 
-                for (int i = 0; i < mServiceProvidersList.size() ; i++) {
-                    com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = (com.yanivshani.advancedmusicplayer2.adapter.SongWithKey) mServiceProvidersList.get(i);
-                    if (songWithKey.getKey().equals(snapshot.getKey())) {
-                        songWithKey.setSong(song);
+                for (int sp = 0; sp < mServiceProvidersList.size() ; sp++) {
+                    com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
+                    if (serviceProviderWithKey.getKey().equals(snapshot.getKey())) {
+                        serviceProviderWithKey.setServiceProvider(song);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
                         break;
                     }
                 }
 
-                Log.e(TAG, "onChildChanged(Songs) <<");
+                Log.e(TAG, "onChildChanged(service_providers) <<");
 
             }
             @Override
             public void onChildMoved(DataSnapshot snapshot, String previousChildName){
 
-                Log.e(TAG, "onChildMoved(Songs) >> " + snapshot.getKey());
+                Log.e(TAG, "onChildMoved(service_providers) >> " + snapshot.getKey());
 
 
-                Log.e(TAG, "onChildMoved(Songs) << Doing nothing");
+                Log.e(TAG, "onChildMoved(service_providers) << Doing nothing");
 
             }
             @Override
             public void onChildRemoved(DataSnapshot snapshot){
 
-                Log.e(TAG, "onChildRemoved(Songs) >> " + snapshot.getKey());
+                Log.e(TAG, "onChildRemoved(service_providers) >> " + snapshot.getKey());
 
-                Song song =snapshot.getValue(Song.class);
+                ServiceProvider serviceProvider =snapshot.getValue(ServiceProvider.class);
                 String key = snapshot.getKey();
 
-                for (int i = 0; i < mServiceProvidersList.size() ; i++) {
-                    com.yanivshani.advancedmusicplayer2.adapter.SongWithKey songWithKey = (com.yanivshani.advancedmusicplayer2.adapter.SongWithKey) mServiceProvidersList.get(i);
-                    if (songWithKey.getKey().equals(snapshot.getKey())) {
-                        mServiceProvidersList.remove(i);
+                for (int sp = 0; sp < mServiceProvidersList.size() ; sp++) {
+                    com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
+                    if (serviceProviderWithKey.getKey().equals(snapshot.getKey())) {
+                        mServiceProvidersList.remove(sp);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
-                        Log.e(TAG, "onChildRemoved(Songs) >> i="+i);
+                        Log.e(TAG, "onChildRemoved(service_providers) >> sp="+sp);
                         break;
                     }
                 }
 
-                Log.e(TAG, "onChildRemoved(Songs) <<");
+                Log.e(TAG, "onChildRemoved(service_providers) <<");
 
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                Log.e(TAG, "onCancelled(Songs) >>" + databaseError.getMessage());
+                Log.e(TAG, "onCancelled(service_providers) >>" + databaseError.getMessage());
             }
         });
 
     }
 
-    private void updateSongsList(DataSnapshot snapshot) {
+    private void updateServiceProvidersList(DataSnapshot snapshot) {
 
 
         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-            Song song = dataSnapshot.getValue(Song.class);
-            Log.e(TAG, "updateSongList() >> adding song: " + song.getName());
+            ServiceProvider serviceProvider = dataSnapshot.getValue(ServiceProvider.class);
+            Log.e(TAG, "updateSongList() >> adding service provider: " + serviceProvider.getName());
             String key = dataSnapshot.getKey();
-            mServiceProvidersList.add(new com.yanivshani.advancedmusicplayer2.adapter.SongWithKey(key,song));
+            mServiceProvidersList.add(new com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey(key,serviceProvider));
         }
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
@@ -214,28 +215,28 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
     public void onSearchButtonClick(View v) {
 
-        String searchString = ((EditText)findViewById(R.id.edit_text_search_song)).getText().toString();
+        String searchString = ((EditText)findViewById(R.id.edit_text_search_service_provider)).getText().toString();
         String orderBy = ((RadioButton)findViewById(R.id.radioButtonByReviews)).isChecked() ? "reviewsCount" : "price";
-        Query searchSong;
+        Query searchServiceProvider;
 
         Log.e(TAG, "onSearchButtonClick() >> searchString="+searchString+ ",orderBy="+orderBy);
 
         mServiceProvidersList.clear();
 
         if (searchString != null && !searchString.isEmpty()) {
-            searchSong = mAllServicesRef.orderByChild("name").startAt(searchString).endAt(searchString + "\uf8ff");
+            searchServiceProvider = mAllServicesRef.orderByChild("name").startAt(searchString).endAt(searchString + "\uf8ff");
         } else {
-            searchSong = mAllServicesRef.orderByChild(orderBy);
+            searchServiceProvider = mAllServicesRef.orderByChild(orderBy);
         }
 
 
-        searchSong.addValueEventListener(new ValueEventListener() {
+        searchServiceProvider.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
                 Log.e(TAG, "onDataChange(Query) >> " + snapshot.getKey());
 
-                updateSongsList(snapshot);
+                updateServiceProvidersList(snapshot);
 
                 Log.e(TAG, "onDataChange(Query) <<");
 
