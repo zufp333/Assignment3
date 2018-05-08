@@ -64,21 +64,19 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
                 .getReference()
                 .child("thumbs/"+serviceProvider.getThumbImage());
         // Load the image using Glide
- 0       Glide.with(holder.getContext())
+        Glide.with(holder.getContext())
                 .using(new FirebaseImageLoader())
                 .load(thumbRef)
                 .into(holder.getThumbImage());
 
-        //fix - what should we set and what get?
         holder.setSelectedServiceProvider(serviceProvider);
         holder.setSelectedServiceProviderKey(serviceProviderKey);
         holder.getName().setText(serviceProvider.getName());
-        holder.get(song.getFile());
-        holder.getGenre().setText(song.getGenre());
-        holder.getArtist().setText(song.getArtist());
-
-
+        holder.getService().setText(serviceProvider.getService());
+        holder.getLocation().setText(serviceProvider.getLocation());
+        holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience());
         holder.setThumbFile(serviceProvider.getThumbImage());
+
         if (serviceProvider.getReviewsCount() >0) {
             holder.getReviewsCount().setText("("+serviceProvider.getReviewsCount()+")");
             holder.getRating().setRating((float)(serviceProvider.getRating() / serviceProvider.getReviewsCount()));
@@ -119,19 +117,19 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         private ServiceProvider mSelectedServiceProvider;
         private String mSelectedServiceProviderKey;
 
+
         public ServiceProviderViewHolder(Context context, View view) {
             super(view);
             // fix - build the UI with all params
             mServiceProviderCardView = (CardView) view.findViewById(R.id.card_view_song);
             mThumbImage = (ImageView) view.findViewById(R.id.provider_thumb_image);
             mName = (TextView) view.findViewById(R.id.provider_name);
-            artist = (TextView) view.findViewById(R.id.provider_service);
-            genre = (TextView) view.findViewById(R.id.provider_loctaion);
-            mPrice = (TextView) view.findViewById(R.id.song_price);
-            mReviewsCount = (TextView) view.findViewById(R.id.song_review_count);
+            mService = (TextView) view.findViewById(R.id.provider_service);
+            mLocation = (TextView) view.findViewById(R.id.provider_loctaion);
+            mPrice = (TextView) view.findViewById(R.id.provider_price);
+            mReviewsCount = (TextView) view.findViewById(R.id.provider_reviews_count);
             rating = (RatingBar) view.findViewById(R.id.provider_rating);
-
-            this.context = context;
+            mYearsOfExperience = (TextView) view.findViewById(R.id.provider_years_of_experience);
 
             mServiceProviderCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,7 +139,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
 
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ServiceProviderDetailsActivity.class);
-                    intent.putExtra("song", mSelectedServiceProvider);
+                    intent.putExtra("serviceProvider", mSelectedServiceProvider);
                     intent.putExtra("key", mSelectedServiceProviderKey);
                     intent.putExtra("user",user);
                     context.startActivity(intent);
@@ -155,6 +153,30 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
 
         public TextView getName() {
             return mName;
+        }
+
+        public TextView getService() {
+            return mService;
+        }
+
+        public void setService(TextView mService) {
+            this.mService = mService;
+        }
+
+        public TextView getLocation() {
+            return mLocation;
+        }
+
+        public void setLocation(TextView mLocation) {
+            this.mLocation = mLocation;
+        }
+
+        public TextView getYearsOfExperience() {
+            return mYearsOfExperience;
+        }
+
+        public void setYearsOfExperience(TextView mYearsOfExperience) {
+            this.mYearsOfExperience = mYearsOfExperience;
         }
 
         public ImageView getThumbImage() {
