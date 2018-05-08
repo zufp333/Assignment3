@@ -215,7 +215,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
     public void onSearchButtonClick(View v) {
 
-        String searchString = ((EditText)findViewById(R.id.edit_text_search_service_provider)).getText().toString();
+        String searchString = ((EditText)findViewById(R.id.edit_text_search_service)).getText().toString();
         String orderBy = ((RadioButton)findViewById(R.id.radioButtonByReviews)).isChecked() ? "reviewsCount" : "price";
         Query searchServiceProvider;
 

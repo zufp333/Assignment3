@@ -32,14 +32,14 @@
                 android:gravity="center_vertical">
 
                 <EditText
-                    android:id="@+id/edit_text_search_service_provider"
+                    android:id="@+id/edit_text_search_service"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:ems="10"
-                    android:hint="Provider Name"
+                    android:hint="Field of service"
                     android:inputType="text|textPersonName"
                     app:layout_constraintEnd_toStartOf="@+id/button_search"
                     app:layout_constraintStart_toStartOf="parent"
