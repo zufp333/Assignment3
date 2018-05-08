@@ -64,7 +64,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
                 .getReference()
                 .child("thumbs/"+serviceProvider.getThumbImage());
         // Load the image using Glide
-        Glide.with(holder.getContext())
+ 0       Glide.with(holder.getContext())
                 .using(new FirebaseImageLoader())
                 .load(thumbRef)
                 .into(holder.getThumbImage());
@@ -123,13 +123,13 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
             super(view);
             // fix - build the UI with all params
             mServiceProviderCardView = (CardView) view.findViewById(R.id.card_view_song);
-            mThumbImage = (ImageView) view.findViewById(R.id.song_thumb_image);
-            mName = (TextView) view.findViewById(R.id.song_name);
-            artist = (TextView) view.findViewById(R.id.song_reviewer_mail);
-            genre = (TextView) view.findViewById(R.id.song_genre);
+            mThumbImage = (ImageView) view.findViewById(R.id.provider_thumb_image);
+            mName = (TextView) view.findViewById(R.id.provider_name);
+            artist = (TextView) view.findViewById(R.id.provider_service);
+            genre = (TextView) view.findViewById(R.id.provider_loctaion);
             mPrice = (TextView) view.findViewById(R.id.song_price);
             mReviewsCount = (TextView) view.findViewById(R.id.song_review_count);
-            rating = (RatingBar) view.findViewById(R.id.song_rating);
+            rating = (RatingBar) view.findViewById(R.id.provider_rating);
 
             this.context = context;
 

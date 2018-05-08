@@ -60,41 +60,41 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewVi
 
     public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView userReview;
-        private TextView userMail;
-        private RatingBar userRating;
+        private TextView mUserReview;
+        private TextView mUserMail;
+        private RatingBar mUserRating;
 
         public ReviewViewHolder(Context context, View view) {
 
             super(view);
-            userReview = (TextView) view.findViewById(R.id.user_review);
-            userMail = (TextView) view.findViewById(R.id.user_mail);
-            userRating = (RatingBar) view.findViewById(R.id.user_rating);
+            mUserReview = (TextView) view.findViewById(R.id.user_review);
+            mUserMail = (TextView) view.findViewById(R.id.user_mail);
+            mUserRating = (RatingBar) view.findViewById(R.id.user_rating);
 
         }
 
         public TextView getUserReview() {
-            return userReview;
+            return mUserReview;
         }
 
         public void setUserReview(TextView userReview) {
-            this.userReview = userReview;
+            this.mUserReview = userReview;
         }
 
         public TextView getUserMail() {
-            return userMail;
+            return mUserMail;
         }
 
         public void setUserMail(TextView userMail) {
-            this.userMail = userMail;
+            this.mUserMail = userMail;
         }
 
         public RatingBar getUserRating() {
-            return userRating;
+            return mUserRating;
         }
 
         public void setUserRating(RatingBar userRating) {
-            this.userRating = userRating;
+            this.mUserRating = userRating;
         }
     }
 }
