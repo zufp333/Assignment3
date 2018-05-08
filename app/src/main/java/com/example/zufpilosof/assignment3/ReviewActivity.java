@@ -48,7 +48,7 @@ public class ReviewActivity extends Activity {
         mUserRating = findViewById(R.id.new_user_rating);
 
 
-        mServiceProviderRef = FirebaseDatabase.getInstance().getReference("Songs/" + mKey);
+        mServiceProviderRef = FirebaseDatabase.getInstance().getReference("Service providers/" + mKey);
 
         mServiceProviderRef.child("/reviews/" +  FirebaseAuth.getInstance().getCurrentUser().getUid()).
                 addListenerForSingleValueEvent(new ValueEventListener() {
