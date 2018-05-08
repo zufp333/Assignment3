@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.example.zufpilosof.assignment3.model.User;
 
 /**
  * Created by zuf pilosof on 08-May-18.
@@ -107,8 +108,8 @@ public class SignInActivity extends Activity {
             Log.e(TAG, "createNewUser() << Error user is null");
             return;
         }
-        //fix
-        //userRef.child(fbUser.getUid()).setValue(new User(fbUser.getEmail(),0,null));
+
+        userRef.child(fbUser.getUid()).setValue(new User(fbUser.getEmail(),0,null));
 
         Log.e(TAG, "createNewUser() <<");
     }
