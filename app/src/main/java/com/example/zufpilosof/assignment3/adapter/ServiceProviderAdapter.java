@@ -74,7 +74,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         holder.getName().setText(serviceProvider.getName());
         holder.getService().setText(serviceProvider.getService());
         holder.getLocation().setText(serviceProvider.getLocation());
-        holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience());
+        holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience()+" Years");
         holder.setThumbFile(serviceProvider.getThumbImage());
 
         if (serviceProvider.getReviewsCount() >0) {
@@ -113,7 +113,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         private TextView mYearsOfExperience;
         private TextView mReviewsCount;
         private Context context;
-        private RatingBar rating;
+        private RatingBar mRating;
         private ServiceProvider mSelectedServiceProvider;
         private String mSelectedServiceProviderKey;
 
@@ -128,8 +128,9 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
             mLocation = (TextView) view.findViewById(R.id.provider_loctaion);
             mPrice = (TextView) view.findViewById(R.id.provider_price);
             mReviewsCount = (TextView) view.findViewById(R.id.provider_reviews_count);
-            rating = (RatingBar) view.findViewById(R.id.provider_rating);
+            mRating = (RatingBar) view.findViewById(R.id.provider_rating);
             mYearsOfExperience = (TextView) view.findViewById(R.id.provider_years_of_experience);
+            this.context = context;
 
             mServiceProviderCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,7 +193,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         }
 
         public RatingBar getRating() {
-            return rating;
+            return mRating;
         }
 
         public void setSelectedServiceProvider(ServiceProvider mSelectedServiceProvider) {

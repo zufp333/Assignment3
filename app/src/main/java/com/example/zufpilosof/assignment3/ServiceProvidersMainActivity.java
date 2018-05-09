@@ -48,13 +48,10 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_providers_main);
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.service_providers_list);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -69,10 +66,9 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
                     mMyUser = snapshot.getValue(User.class);
 
-                    getAllSongs();
+                    getAllServiceProviders();
 
                     Log.e(TAG, "onDataChange(User) <<");
-
                 }
 
                 @Override
@@ -84,19 +80,17 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
             Log.e(TAG, "onCreate() <<");
         } else {
-            getAllSongs();
+            getAllServiceProviders();
         }
     }
 
-    private void getAllSongs() {
-
-
+    private void getAllServiceProviders() {
         mServiceProvidersList.clear();
         mServiceProviderAdapter = new com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter(mServiceProvidersList, mMyUser);
         mRecyclerView.setAdapter(mServiceProviderAdapter);
 
         //getAllServiceProvidersUsingValueListenrs(); fix
-        getAllSongsUsingChildListenrs();
+        getAllServiceProvidersUsingChildListeners();
 
 
     }
@@ -123,7 +117,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
             }
         });
     }
-    private void getAllSongsUsingChildListenrs() {
+    private void getAllServiceProvidersUsingChildListeners() {
 
         mAllServicesRef = FirebaseDatabase.getInstance().getReference("service_providers");
 
