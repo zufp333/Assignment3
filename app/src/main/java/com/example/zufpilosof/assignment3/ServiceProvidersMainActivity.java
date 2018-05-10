@@ -1,5 +1,6 @@
 package com.example.zufpilosof.assignment3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -255,6 +256,17 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 ((RadioButton)findViewById(R.id.radioButtonByPrice)).setChecked(false);
                 break;
         }
+    }
+
+    public void onSignOutButtonCLick(View v) {
+        Log.e(TAG, "onSignOutButtonCLick() >>");
+
+        if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
+            FirebaseAuth.getInstance().signOut();
+        Intent i = new Intent(getApplicationContext(), SignInActivity.class);
+        startActivity(i);
+        finish();
+        Log.e(TAG, "onSignOutButtonCLick() <<");
     }
 }
 

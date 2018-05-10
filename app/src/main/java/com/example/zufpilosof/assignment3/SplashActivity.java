@@ -21,8 +21,11 @@ public class SplashActivity extends Activity {
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -31,10 +34,11 @@ public class SplashActivity extends Activity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-                Intent intent = new Intent(getApplicationContext(),
+                Intent i = new Intent(getApplicationContext(),
                         user == null ? SignInActivity.class : ServiceProvidersMainActivity.class);
-                startActivity(intent);
+                startActivity(i);
                 finish();
+
             }
         }, 3000);
     }
