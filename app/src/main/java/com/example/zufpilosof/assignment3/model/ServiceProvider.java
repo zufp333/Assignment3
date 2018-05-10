@@ -62,7 +62,7 @@ public class ServiceProvider implements Parcelable {
 
     public int getYearsOfExperience() { return mYearsOfExperience; }
 
-    public void setYearsOfExperience(int mYearsOfExperience) { this.mYearsOfExperience = mYearsOfExperience; }
+    public void setYearsOfExperience(int YearsOfExperience) { this.mYearsOfExperience = YearsOfExperience; }
 
     public Map<String, Review> getReviews() { return reviews; }
 
