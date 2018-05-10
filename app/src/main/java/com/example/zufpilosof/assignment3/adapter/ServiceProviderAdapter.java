@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.zufpilosof.assignment3.model.ServiceProvider;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.example.zufpilosof.assignment3.R;
@@ -54,7 +55,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
     @Override
     public void onBindViewHolder(ServiceProviderViewHolder holder, int position) {
 
-        Log.e(TAG,"onBindViewHolder() >> " + position);
+        Log.e(TAG, "onBindViewHolder() >> " + position);
 
         ServiceProvider serviceProvider = mServiceProvidersList.get(position).getServiceProvider();
         String serviceProviderKey = mServiceProvidersList.get(position).getKey();
@@ -62,7 +63,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         StorageReference thumbRef = FirebaseStorage
                 .getInstance()
                 .getReference()
-                .child("thumbs/"+serviceProvider.getThumbImage());
+                .child("thumbs/" + serviceProvider.getThumbImage());
         // Load the image using Glide
         Glide.with(holder.getContext())
                 .using(new FirebaseImageLoader())
@@ -74,21 +75,23 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         holder.getName().setText(serviceProvider.getName());
         holder.getService().setText(serviceProvider.getService());
         holder.getLocation().setText(serviceProvider.getLocation());
-        holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience()+" Years");
+        holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience() + " Years");
         holder.setThumbFile(serviceProvider.getThumbImage());
 
-        if (serviceProvider.getReviewsCount() >0) {
-            holder.getReviewsCount().setText("("+serviceProvider.getReviewsCount()+")");
-            holder.getRating().setRating((float)(serviceProvider.getRating() / serviceProvider.getReviewsCount()));
+        if (serviceProvider.getReviewsCount() > 0) {
+            holder.getReviewsCount().setText("(" + serviceProvider.getReviewsCount() + ")");
+            holder.getRating().setRating((float) (serviceProvider.getRating() / serviceProvider.getReviewsCount()));
         }
 
-        holder.getPrice().setText("$"+serviceProvider.getPrice());
+        holder.getPrice().setText("$" + serviceProvider.getPrice());
 
-        Iterator i = user.getMyServiceRequests().iterator();
-        while (i.hasNext()) {
-            if (i.next().equals(serviceProviderKey)) {
-                holder.getPrice().setTextColor(R.color.colorPrimary);
-                break;
+        if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+            Iterator i = user.getMyServiceRequests().iterator();
+            while (i.hasNext()) {
+                if (i.next().equals(serviceProviderKey)) {
+                    holder.getPrice().setTextColor(R.color.colorPrimary);
+                    break;
+                }
             }
         }
 
@@ -131,7 +134,6 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
             mRating = (RatingBar) view.findViewById(R.id.provider_rating);
             mYearsOfExperience = (TextView) view.findViewById(R.id.provider_years_of_experience);
             this.context = context;
-
             mServiceProviderCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

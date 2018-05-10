@@ -32,13 +32,16 @@ public class SplashActivity extends Activity {
             public void run() {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Intent intent;
 
+               if(user.isAnonymous() || user == null)
+                   intent = new Intent(getApplicationContext(), SignInActivity.class);
 
-                Intent i = new Intent(getApplicationContext(),
-                        user == null ? SignInActivity.class : ServiceProvidersMainActivity.class);
-                startActivity(i);
+               else
+                   intent = new Intent(getApplicationContext(), ServiceProvidersMainActivity.class);
+
+                startActivity(intent);
                 finish();
-
             }
         }, 3000);
     }

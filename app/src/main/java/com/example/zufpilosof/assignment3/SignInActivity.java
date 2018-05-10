@@ -97,6 +97,28 @@ public class SignInActivity extends Activity {
         Log.e(TAG, "onEmailPasswordAuthClick() <<");
     }
 
+    public void onSkipButtonClick(View v) {
+        Log.e(TAG, "onSkipButtonClick() >>");
+
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "OnComplete : " +task.isSuccessful());
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Failed : ", task.getException());
+                            Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+        Intent intent = new Intent(getApplicationContext(),ServiceProvidersMainActivity.class);
+        startActivity(intent);
+        finish();
+        Log.e(TAG, "onSkipButtonClick() <<");
+    }
     private void createNewUser() {
 
         Log.e(TAG, "createNewUser() >>");
