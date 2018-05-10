@@ -34,7 +34,7 @@ public class SplashActivity extends Activity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Intent intent;
 
-               if(user.isAnonymous() || user == null)
+               if(user == null || user.isAnonymous())
                    intent = new Intent(getApplicationContext(), SignInActivity.class);
 
                else
