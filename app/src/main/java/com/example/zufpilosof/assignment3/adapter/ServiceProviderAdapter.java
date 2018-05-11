@@ -77,7 +77,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         holder.getLocation().setText(serviceProvider.getLocation());
         holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience() + " Years");
         holder.setThumbFile(serviceProvider.getThumbImage());
-
+        Log.e(TAG, "LOL!! >> " + serviceProvider.getThumbImage());
         if (serviceProvider.getReviewsCount() > 0) {
             holder.getReviewsCount().setText("(" + serviceProvider.getReviewsCount() + ")");
             holder.getRating().setRating((float) (serviceProvider.getRating() / serviceProvider.getReviewsCount()));

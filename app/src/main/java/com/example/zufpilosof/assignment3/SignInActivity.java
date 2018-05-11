@@ -84,9 +84,9 @@ public class SignInActivity extends Activity {
                     if (mIsSignup) {
                         createNewUser();
                     }
-                    //fix
-                    //Intent intent = new Intent(getApplicationContext(), MusicPlayerMain.class);
-                    //startActivity(intent);
+
+                    Intent intent = new Intent(getApplicationContext(), ServiceProvidersMainActivity.class);
+                    startActivity(intent);
                     finish();
 
                 }

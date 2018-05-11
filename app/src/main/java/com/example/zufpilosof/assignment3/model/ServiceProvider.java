@@ -10,6 +10,7 @@ public class ServiceProvider implements Parcelable {
     private String mName;
     private String mService;
     private String mLocation;
+    private String mPhone;
     private String mThumbImage;
     private int mPrice;
     private int mRating;
@@ -17,11 +18,12 @@ public class ServiceProvider implements Parcelable {
     private int mYearsOfExperience;
     private Map<String,Review> reviews;
 
-    public ServiceProvider(String name, String service, String location, String thumbImage, int price, int rating, int reviewsCount, int yearsOfExperience, Map<String,Review> reviews) {
+    public ServiceProvider(String name, String service, String location, String thumbImage, String phone, int price, int rating, int reviewsCount, int yearsOfExperience, Map<String,Review> reviews) {
         this.mName = name;
         this.mService = service;
         this.mLocation = location;
-        this.mThumbImage = thumbImage;
+       this.mThumbImage = thumbImage;
+        this.mPhone = phone;
         this.mPrice = price;
         this.mRating = rating;
         this.mReviewsCount = reviewsCount;
@@ -47,6 +49,10 @@ public class ServiceProvider implements Parcelable {
     public String getThumbImage() { return mThumbImage; }
 
     public void setThumbImage(String mThumbImage) { this.mThumbImage = mThumbImage; }
+
+    public String getPhone() { return mPhone; }
+
+    public void setphone(String phone) { this.mPhone = phone; }
 
     public int getPrice() { return mPrice; }
 

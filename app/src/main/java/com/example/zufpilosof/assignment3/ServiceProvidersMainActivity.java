@@ -90,7 +90,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         mServiceProviderAdapter = new com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter(mServiceProvidersList, mMyUser);
         mRecyclerView.setAdapter(mServiceProviderAdapter);
 
-        //getAllServiceProvidersUsingValueListenrs(); fix
+      //  getAllServiceProvidersUsingValueListenrs();fix
         getAllServiceProvidersUsingChildListeners();
 
 
