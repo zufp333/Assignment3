@@ -45,7 +45,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
     private FloatingActionButton mWriteReview;
     private Button mBuyPlay;
-    private MediaPlayer mMediaPlayer;
+
     private RecyclerView mRecyclerViewServiceProviderReviews;
 
     private DatabaseReference mServiceProviderReviewsRef;
@@ -62,63 +62,58 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_provider_details);
 
-        mKey = getIntent().getStringExtra("mKey");
-        mServiceProvider = getIntent().getParcelableExtra("mServiceProvider");
-        mUser = getIntent().getParcelableExtra("mUser");
+        mKey = getIntent().getStringExtra("key");
+        mServiceProvider = getIntent().getParcelableExtra("serviceProvider");
+        mUser = getIntent().getParcelableExtra("user");
 
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-        StorageReference thumbRef = FirebaseStorage
-                .getInstance()
-                .getReference()
-                .child("thumbs/" + mServiceProvider.getThumbImage());
 
         // Load the image using Glide
         Glide.with(this)
-                .using(new FirebaseImageLoader())
-                .load(thumbRef)
+                .load(mServiceProvider.getThumbImage())
                 .into((ImageView) findViewById(R.id.imageViewServiceProvider));
 
         ((TextView) findViewById(R.id.textViewName)).setText(mServiceProvider.getName());
         ((TextView) findViewById(R.id.textViewService)).setText(mServiceProvider.getService());
         ((TextView) findViewById(R.id.textViewLocation)).setText(mServiceProvider.getLocation());
-        ((TextView) findViewById(R.id.textViewYearsOfExperience)).setText(mServiceProvider.getYearsOfExperience());
+        ((TextView) findViewById(R.id.textViewPhone)).setText(mServiceProvider.getPhone());
+        ((TextView) findViewById(R.id.textViewYearsOfExperience)).setText("" + mServiceProvider.getYearsOfExperience());
 
-        //mBuyPlay = ((Button) findViewById(R.id.buttonBuyPlay)); // fix - no need
+
+        mBuyPlay = ((Button) findViewById(R.id.buttonBuyPlay)); // fix - no need
         //
-        //mBuyPlay.setText("BUY $" + mServiceProvider.getPrice()); // fix - no need maybe different
-        //Iterator i = mUser.getmMyServiceRequests().iterator();
-        //while (i.hasNext()) {
-        //    if (i.next().equals(mKey)) {
-        //        mServiceProviderWasPurchased = true;
-        //        mBuyPlay.setText("PLAY");
-        //        break;
-        //    }
-        //}
+        mBuyPlay.setText("ORDER $" + mServiceProvider.getPrice());
+        Iterator i = mUser.getMyServiceRequests().iterator();
+        while (i.hasNext()) {
+           if (i.next().equals(mKey)) {
+               mServiceProviderWasPurchased = true;
+               mBuyPlay.setText("CALL");
+               break;
+           }
+        }
 
-
-       //mBuyPlay.setOnClickListener(new View.OnClickListener() {
-       //    @Override
-       //    public void onClick(View view) {
-       //        Log.e(TAG, "mBuyPlay.onClick() >> file=" + mServiceProvider.getName());
-       //        if (mServiceProviderWasPurchased) {
-       //            Log.e(TAG, "mBuyPlay.onClick() >> Playing purchased mServiceProvider");
-       //            //User purchased the mServiceProvider so he can play it
-       //            playCurrentSong(mServiceProvider.getFile());
-       //        } else {
-       //            //Purchase the mServiceProvider.
-       //            Log.e(TAG, "mBuyPlay.onClick() >> Purchase the mServiceProvider");
-       //            mUser.getMySongs().add(mKey);
-       //            mUser.upgdateTotalPurchase(mServiceProvider.getPrice());
-       //            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
-       //            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mUser);
-       //            mServiceProviderWasPurchased = true;
-       //            mBuyPlay.setText("PLAY");
-       //        }
-       //        Log.e(TAG, "playSong.onClick() <<");
-       //    }
-       //});
+        /*
+        mBuyPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Log.e(TAG, "mBuyPlay.onClick() >> file=" + mServiceProvider.getName());
+               if (mServiceProviderWasPurchased) {
+                   Log.e(TAG, "mBuyPlay.onClick() >> Playing purchased mServiceProvider");
+                   //User purchased the mServiceProvider so he can play it
+                   playCurrentSong(mServiceProvider.getFile());
+               } else {
+                   if(true)
+                   Log.e(TAG, "mBuyPlay.onClick() >> Purchase the mServiceProvider");
+                   mUser.getMySongs().add(mKey);
+                   mUser.upgdateTotalPurchase(mServiceProvider.getPrice());
+                   DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+                   userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mUser);
+                   mServiceProviderWasPurchased = true;
+                   mBuyPlay.setText("PLAY");
+               }
+              Log.e(TAG, "playSong.onClick() <<");
+          }
+       });
+       */
 
         mWriteReview = (FloatingActionButton) findViewById(R.id.buttonNewReview);
 
@@ -130,9 +125,9 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
 
                    Intent intent = new Intent(getApplicationContext(),ReviewActivity.class);
-                   intent.putExtra("mServiceProvider", mServiceProvider);
-                   intent.putExtra("mKey", mKey);
-                   intent.putExtra("mUser", mUser);
+                   intent.putExtra("serviceProvider", mServiceProvider);
+                   intent.putExtra("key", mKey);
+                   intent.putExtra("user", mUser);
 
                    startActivity(intent);
                    finish();
@@ -181,54 +176,10 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        stopPlayingCurrentSong();
+
     }
 
-    private void playCurrentSong(String songFile) {
-
-        Log.e(TAG, "playCurrentSong() >> songFile=" + songFile);
-
-        if (stopPlayingCurrentSong()) {
-            Log.e(TAG, "playCurrentSong() << Stop playing current mServiceProvider");
-            return;
-        }
-
-        FirebaseStorage.getInstance()
-                .getReference("songs/" + songFile)
-                .getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri downloadUrl) {
-                        Log.e(TAG, "onSuccess() >> " + downloadUrl.toString());
-
-                        try {
-
-                            mMediaPlayer.setDataSource(downloadUrl.toString());
-                            mMediaPlayer.prepare(); // might take long! (for buffering, etc)
-                            mMediaPlayer.start();
-                            mBuyPlay.setText("STOP");
 
 
-                        } catch (Exception e) {
-                            Log.w(TAG, "playSong() error:" + e.getMessage());
-                        }
 
-                        Log.e(TAG, "onSuccess() <<");
-                    }
-                });
-        Log.e(TAG, "playCurrentSong() << ");
-    }
-
-    private boolean stopPlayingCurrentSong() {
-
-        if (mMediaPlayer.isPlaying()) {
-            Log.e(TAG, "onSuccess() >> Stop the media player");
-            //Stop the media player
-            mMediaPlayer.stop();
-            mMediaPlayer.reset();
-            mBuyPlay.setText("PLAY");
-            return true;
-        }
-        return false;
-    }
 }

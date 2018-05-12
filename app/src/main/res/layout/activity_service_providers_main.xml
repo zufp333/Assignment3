@@ -77,20 +77,21 @@
                     app:layout_constraintVertical_bias="0.9" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonByReviews"
-                    android:layout_width="120dp"
-                    android:layout_height="32dp"
+                    android:id="@+id/radioButtonByYearsOfExperience"
+                    android:layout_width="129dp"
+                    android:layout_height="37dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:onClick="onRadioButtonCLick"
-                    android:text="Order by reviews"
+                    android:text="Order by experience"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button_sign_out"
+                    app:layout_constraintHorizontal_bias="0.166"
                     app:layout_constraintStart_toEndOf="@+id/radioButtonByPrice"
                     app:layout_constraintTop_toTopOf="@+id/edit_text_search_service"
-                    app:layout_constraintVertical_bias="0.822" />
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <Button
                     android:id="@+id/button_sign_out"

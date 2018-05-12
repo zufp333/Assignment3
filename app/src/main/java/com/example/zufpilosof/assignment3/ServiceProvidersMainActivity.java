@@ -169,7 +169,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onChildRemoved(service_providers) >> " + snapshot.getKey());
 
-                ServiceProvider serviceProvider =snapshot.getValue(ServiceProvider.class);
+                ServiceProvider serviceProvider = snapshot.getValue(ServiceProvider.class);
                 String key = snapshot.getKey();
 
                 for (int sp = 0; sp < mServiceProvidersList.size() ; sp++) {
@@ -211,7 +211,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     public void onSearchButtonClick(View v) {
 
         String searchString = ((EditText)findViewById(R.id.edit_text_search_service)).getText().toString();
-        String orderBy = ((RadioButton)findViewById(R.id.radioButtonByReviews)).isChecked() ? "reviewsCount" : "price";
+        String orderBy = ((RadioButton)findViewById(R.id.radioButtonByYearsOfExperience)).isChecked() ? "yearsOfExperience" : "price";
         Query searchServiceProvider;
 
         Log.e(TAG, "onSearchButtonClick() >> searchString="+searchString+ ",orderBy="+orderBy);
@@ -219,7 +219,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         mServiceProvidersList.clear();
 
         if (searchString != null && !searchString.isEmpty()) {
-            searchServiceProvider = mAllServicesRef.orderByChild("name").startAt(searchString).endAt(searchString + "\uf8ff");
+            searchServiceProvider = mAllServicesRef.orderByChild("service").startAt(searchString).endAt(searchString + "\uf8ff");
         } else {
             searchServiceProvider = mAllServicesRef.orderByChild(orderBy);
         }
@@ -250,9 +250,9 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     public void onRadioButtonCLick(View v) {
         switch (v.getId()) {
             case R.id.radioButtonByPrice:
-                ((RadioButton)findViewById(R.id.radioButtonByReviews)).setChecked(false);
+                ((RadioButton)findViewById(R.id.radioButtonByYearsOfExperience)).setChecked(false);
                 break;
-            case R.id.radioButtonByReviews:
+            case R.id.radioButtonByYearsOfExperience:
                 ((RadioButton)findViewById(R.id.radioButtonByPrice)).setChecked(false);
                 break;
         }

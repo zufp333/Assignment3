@@ -60,14 +60,9 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         ServiceProvider serviceProvider = mServiceProvidersList.get(position).getServiceProvider();
         String serviceProviderKey = mServiceProvidersList.get(position).getKey();
 
-        StorageReference thumbRef = FirebaseStorage
-                .getInstance()
-                .getReference()
-                .child("thumbs/" + serviceProvider.getThumbImage());
         // Load the image using Glide
         Glide.with(holder.getContext())
-                .using(new FirebaseImageLoader())
-                .load(thumbRef)
+                .load(serviceProvider.getThumbImage())
                 .into(holder.getThumbImage());
 
         holder.setSelectedServiceProvider(serviceProvider);
@@ -75,9 +70,10 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         holder.getName().setText(serviceProvider.getName());
         holder.getService().setText(serviceProvider.getService());
         holder.getLocation().setText(serviceProvider.getLocation());
+        holder.getPhone().setText(serviceProvider.getPhone());
         holder.getYearsOfExperience().setText(serviceProvider.getYearsOfExperience() + " Years");
         holder.setThumbFile(serviceProvider.getThumbImage());
-        Log.e(TAG, "LOL!! >> " + serviceProvider.getThumbImage());
+
         if (serviceProvider.getReviewsCount() > 0) {
             holder.getReviewsCount().setText("(" + serviceProvider.getReviewsCount() + ")");
             holder.getRating().setRating((float) (serviceProvider.getRating() / serviceProvider.getReviewsCount()));
@@ -113,6 +109,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         private TextView mService;
         private TextView mLocation;
         private TextView mPrice;
+        private TextView mPhone;
         private TextView mYearsOfExperience;
         private TextView mReviewsCount;
         private Context context;
@@ -123,13 +120,14 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
 
         public ServiceProviderViewHolder(Context context, View view) {
             super(view);
-            // fix - build the UI with all params
+
             mServiceProviderCardView = (CardView) view.findViewById(R.id.card_view_song);
             mThumbImage = (ImageView) view.findViewById(R.id.provider_thumb_image);
             mName = (TextView) view.findViewById(R.id.provider_name);
             mService = (TextView) view.findViewById(R.id.provider_service);
             mLocation = (TextView) view.findViewById(R.id.provider_loctaion);
             mPrice = (TextView) view.findViewById(R.id.provider_price);
+            mPhone = (TextView) view.findViewById(R.id.provider_phone);
             mReviewsCount = (TextView) view.findViewById(R.id.provider_reviews_count);
             mRating = (RatingBar) view.findViewById(R.id.provider_rating);
             mYearsOfExperience = (TextView) view.findViewById(R.id.provider_years_of_experience);
@@ -154,6 +152,9 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
             return mPrice;
         }
 
+        public  TextView getPhone() {
+            return  mPhone;
+        }
         public TextView getName() {
             return mName;
         }

@@ -50,6 +50,17 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/provider_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:text="[phone]"
+                android:textColor="@android:color/holo_blue_dark"
+                card_view:layout_constraintStart_toEndOf="@+id/provider_thumb_image"
+                card_view:layout_constraintTop_toBottomOf="@+id/provider_name" />
+
+            <TextView
                 android:id="@+id/provider_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,13 +90,13 @@
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="14sp"
                 card_view:layout_constraintStart_toEndOf="@+id/provider_thumb_image"
-                card_view:layout_constraintTop_toBottomOf="@+id/provider_service" />
+                card_view:layout_constraintTop_toBottomOf="@+id/provider_phone" />
 
             <RatingBar
                 android:id="@+id/provider_rating"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
-                android:layout_height="17dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:numStars="5"
                 android:rating="0"
@@ -111,8 +122,7 @@
                 android:id="@+id/provider_reviews_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="28dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toEndOf="@+id/provider_rating" />
 
