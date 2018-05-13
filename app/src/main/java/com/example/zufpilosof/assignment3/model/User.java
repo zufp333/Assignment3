@@ -26,7 +26,7 @@ public class User implements Parcelable {
     }
 
 
-    public void upgdateTotalPurchase(int newPurcahsePrice) {
+    public void updateTotalPurchase(int newPurcahsePrice) {
         this.mTotalPurchase += newPurcahsePrice;
     }
 

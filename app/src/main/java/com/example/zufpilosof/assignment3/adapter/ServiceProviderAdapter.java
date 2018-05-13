@@ -81,12 +81,14 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
 
         holder.getPrice().setText("$" + serviceProvider.getPrice());
 
-        if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
-            Iterator i = user.getMyServiceRequests().iterator();
-            while (i.hasNext()) {
-                if (i.next().equals(serviceProviderKey)) {
-                    holder.getPrice().setTextColor(R.color.colorPrimary);
-                    break;
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && !FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+            if (user != null) {
+                Iterator i = user.getMyServiceRequests().iterator();
+                while (i.hasNext()) {
+                    if (i.next().equals(serviceProviderKey)) {
+                        holder.getPrice().setTextColor(R.color.colorPrimary);
+                        break;
+                    }
                 }
             }
         }

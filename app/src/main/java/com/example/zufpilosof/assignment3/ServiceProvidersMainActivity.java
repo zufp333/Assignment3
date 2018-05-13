@@ -56,6 +56,9 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        if (fbUser.isAnonymous())
+            FirebaseAuth.getInstance().signOut();
+
         if (fbUser != null) {
             mMyUserRef = FirebaseDatabase.getInstance().getReference("Users/" + fbUser.getUid());
 
@@ -65,6 +68,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
                     Log.e(TAG, "onDataChange(User) >> " + snapshot.getKey());
 
+                    // fix always null:
                     mMyUser = snapshot.getValue(User.class);
 
                     getAllServiceProviders();

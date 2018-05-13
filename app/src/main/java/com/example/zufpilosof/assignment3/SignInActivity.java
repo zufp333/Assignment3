@@ -109,8 +109,6 @@ public class SignInActivity extends Activity {
                             Log.w(TAG, "Failed : ", task.getException());
                             Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
 

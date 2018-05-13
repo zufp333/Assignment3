@@ -1,9 +1,6 @@
 package com.example.zufpilosof.assignment3;
 
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,18 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.example.zufpilosof.assignment3.adapter.ReviewsAdapter;
 import com.example.zufpilosof.assignment3.model.Review;
 import com.example.zufpilosof.assignment3.model.ServiceProvider;
@@ -44,7 +39,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     private User mUser;
 
     private FloatingActionButton mWriteReview;
-    private Button mBuyPlay;
+    private Button mOrderService;
 
     private RecyclerView mRecyclerViewServiceProviderReviews;
 
@@ -66,7 +61,6 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         mServiceProvider = getIntent().getParcelableExtra("serviceProvider");
         mUser = getIntent().getParcelableExtra("user");
 
-
         // Load the image using Glide
         Glide.with(this)
                 .load(mServiceProvider.getThumbImage())
@@ -79,41 +73,51 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewYearsOfExperience)).setText("" + mServiceProvider.getYearsOfExperience());
 
 
-        mBuyPlay = ((Button) findViewById(R.id.buttonBuyPlay)); // fix - no need
+        mOrderService = ((Button) findViewById(R.id.buttonBuyPlay)); // fix - no need
         //
-        mBuyPlay.setText("ORDER $" + mServiceProvider.getPrice());
-        Iterator i = mUser.getMyServiceRequests().iterator();
-        while (i.hasNext()) {
-           if (i.next().equals(mKey)) {
-               mServiceProviderWasPurchased = true;
-               mBuyPlay.setText("CALL");
-               break;
-           }
+        mOrderService.setText("ORDER $" + mServiceProvider.getPrice());
+        if (mUser != null) {
+            Iterator i = mUser.getMyServiceRequests().iterator();
+            while (i.hasNext()) {
+                if (i.next().equals(mKey)) {
+                    mServiceProviderWasPurchased = true;
+                    mOrderService.setText("CALL");
+                    break;
+                }
+            }
         }
 
-        /*
-        mBuyPlay.setOnClickListener(new View.OnClickListener() {
+
+        mOrderService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Log.e(TAG, "mBuyPlay.onClick() >> file=" + mServiceProvider.getName());
-               if (mServiceProviderWasPurchased) {
-                   Log.e(TAG, "mBuyPlay.onClick() >> Playing purchased mServiceProvider");
-                   //User purchased the mServiceProvider so he can play it
-                   playCurrentSong(mServiceProvider.getFile());
-               } else {
-                   if(true)
-                   Log.e(TAG, "mBuyPlay.onClick() >> Purchase the mServiceProvider");
-                   mUser.getMySongs().add(mKey);
-                   mUser.upgdateTotalPurchase(mServiceProvider.getPrice());
-                   DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
-                   userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mUser);
-                   mServiceProviderWasPurchased = true;
-                   mBuyPlay.setText("PLAY");
-               }
-              Log.e(TAG, "playSong.onClick() <<");
-          }
+                FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+                if (mUser == null || FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+                    // In case the user is logged in anonymously, send him to the SignIn screen:
+                    Toast.makeText(ServiceProviderDetailsActivity.this, "Please sign in to order a service.", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.e(TAG, "mOrderService.onClick() >> " + mServiceProvider.getName());
+                    if (mServiceProviderWasPurchased) {
+                        Log.e(TAG, "mOrderService.onClick() >> Playing purchased mServiceProvider");
+                        //User purchased the mServiceProvider so he can play it
+                        //playCurrentSong(mServiceProvider.getFile());
+                    } else {
+                            Log.e(TAG, "mOrderService.onClick() >> Purchase the mServiceProvider");
+                            mUser.getMyServiceRequests().add(mKey);
+                            mUser.updateTotalPurchase(mServiceProvider.getPrice());
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+                            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mUser);
+                            mServiceProviderWasPurchased = true;
+                            mOrderService.setText("CALL");
+                    }
+                    Log.e(TAG, "callServiceProvider.onClick() <<");
+                }
+            }
        });
-       */
+
 
         mWriteReview = (FloatingActionButton) findViewById(R.id.buttonNewReview);
 
