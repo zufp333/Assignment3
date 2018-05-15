@@ -9,16 +9,16 @@ import java.util.List;
 public class User implements Parcelable {
 
     private String email;
-    private int mTotalPurchase;
-    private List<String> mMyServiceRequests = new ArrayList<>();
+    private int totalPurchase;
+    private List<String> myServiceRequests = new ArrayList<>();
 
     public User() {
     }
 
     public User(String email, int totalPurchase, List<String> myServiceRequests) {
         this.email = email;
-        this.mTotalPurchase = totalPurchase;
-        this.mMyServiceRequests = myServiceRequests;
+        this.totalPurchase = totalPurchase;
+        this.myServiceRequests = myServiceRequests;
     }
 
     public String getEmail() {
@@ -27,11 +27,11 @@ public class User implements Parcelable {
 
 
     public void updateTotalPurchase(int newPurcahsePrice) {
-        this.mTotalPurchase += newPurcahsePrice;
+        this.totalPurchase += newPurcahsePrice;
     }
 
     public List<String> getMyServiceRequests() {
-        return mMyServiceRequests;
+        return myServiceRequests;
     }
 
 
@@ -43,12 +43,12 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(email);
-        parcel.writeList(mMyServiceRequests);
+        parcel.writeList(myServiceRequests);
     }
 
     public User(Parcel in) {
         this.email = in.readString();
-        in.readList(mMyServiceRequests,String.class.getClassLoader());
+        in.readList(myServiceRequests,String.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
