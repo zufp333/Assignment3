@@ -48,7 +48,7 @@ public class ReviewActivity extends Activity {
         mUserRating = findViewById(R.id.new_user_rating);
 
 
-        mServiceProviderRef = FirebaseDatabase.getInstance().getReference("Service providers/" + mKey);
+        mServiceProviderRef = FirebaseDatabase.getInstance().getReference("service_providers/" + mKey);
 
         mServiceProviderRef.child("/reviews/" +  FirebaseAuth.getInstance().getCurrentUser().getUid()).
                 addListenerForSingleValueEvent(new ValueEventListener() {
@@ -133,9 +133,9 @@ public class ReviewActivity extends Activity {
 
 
                 Intent intent = new Intent(getApplicationContext(),ServiceProviderDetailsActivity.class);
-                intent.putExtra("ServiceProvider", mServiceProvider);
-                intent.putExtra("Key", mKey);
-                intent.putExtra("User", mUser);
+                intent.putExtra("serviceProvider", mServiceProvider);
+                intent.putExtra("key", mKey);
+                intent.putExtra("user", mUser);
                 startActivity(intent);
                 finish();
 

@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".ServiceProvidersMainActivity"></activity>
         <activity android:name=".ServiceProviderDetailsActivity"></activity>
+        <activity android:name=".ReviewActivity"></activity>
+
     </application>
 
 </manifest>

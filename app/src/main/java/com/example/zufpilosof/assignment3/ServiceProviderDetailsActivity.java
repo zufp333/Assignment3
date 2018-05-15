@@ -71,7 +71,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewService)).setText(mServiceProvider.getService());
         ((TextView) findViewById(R.id.textViewLocation)).setText(mServiceProvider.getLocation());
         ((TextView) findViewById(R.id.textViewPhone)).setText(mServiceProvider.getPhone());
-        ((TextView) findViewById(R.id.textViewYearsOfExperience)).setText("" + mServiceProvider.getYearsOfExperience());
+        ((TextView) findViewById(R.id.textViewYearsOfExperience)).setText(mServiceProvider.getYearsOfExperience() + " Years in field");
 
 
         mOrderService = ((Button) findViewById(R.id.buttonBuyPlay)); // fix - no need
