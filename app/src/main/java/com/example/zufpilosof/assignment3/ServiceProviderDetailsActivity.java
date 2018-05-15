@@ -50,6 +50,8 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
     private boolean mServiceProviderWasPurchased;
 
+    private  TextView mPhoneTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,8 +61,10 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_service_provider_details);
 
         mKey = getIntent().getStringExtra("key");
-        mServiceProvider = getIntent().getParcelableExtra("serviceProvider");
+        mServiceProvider = getIntent().getParcelableExtra("ServiceProvider");
+        mServiceProvider.setPhone(getIntent().getStringExtra("phone"));
         mUser = getIntent().getParcelableExtra("user");
+        mPhoneTextView = ((TextView) findViewById(R.id.textViewPhone));
 
         // Load the image using Glide
         Glide.with(this)
@@ -70,7 +74,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewName)).setText(mServiceProvider.getName());
         ((TextView) findViewById(R.id.textViewService)).setText(mServiceProvider.getService());
         ((TextView) findViewById(R.id.textViewLocation)).setText(mServiceProvider.getLocation());
-        ((TextView) findViewById(R.id.textViewPhone)).setText(mServiceProvider.getPhone());
+         mPhoneTextView.setText(mServiceProvider.getPhone());
         ((TextView) findViewById(R.id.textViewYearsOfExperience)).setText(mServiceProvider.getYearsOfExperience() + " Years in field");
 
 
@@ -84,6 +88,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                 if (i.next().equals(mKey)) {
                     mServiceProviderWasPurchased = true;
                     mOrderService.setText("CALL");
+                    mPhoneTextView.setVisibility(View.VISIBLE);
                     break;
                 }
             }
@@ -113,6 +118,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
                             userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mUser);
                             mServiceProviderWasPurchased = true;
+                            mPhoneTextView.setVisibility(View.VISIBLE);
                             mOrderService.setText("CALL");
                     }
                     Log.e(TAG, "callServiceProvider.onClick() <<");
@@ -132,6 +138,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
                    Intent intent = new Intent(getApplicationContext(),ReviewActivity.class);
                    intent.putExtra("serviceProvider", mServiceProvider);
+                   intent.putExtra("phone", mServiceProvider.getPhone());
                    intent.putExtra("key", mKey);
                    intent.putExtra("user", mUser);
 
@@ -181,8 +188,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
     private void callServiceProvider() {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.putExtra("phone_number",mServiceProvider.getPhone());
-        intent.setData(Uri.parse("Tel: " + mServiceProvider.getPhone()));
+        intent.setData(Uri.parse("tel:" + mServiceProvider.getPhone()));
         startActivity(intent);
     }
 
