@@ -8,7 +8,7 @@ import java.util.List;
 
 public class User implements Parcelable {
 
-    private String mEmail;
+    private String email;
     private int mTotalPurchase;
     private List<String> mMyServiceRequests = new ArrayList<>();
 
@@ -16,13 +16,13 @@ public class User implements Parcelable {
     }
 
     public User(String email, int totalPurchase, List<String> myServiceRequests) {
-        this.mEmail = email;
+        this.email = email;
         this.mTotalPurchase = totalPurchase;
         this.mMyServiceRequests = myServiceRequests;
     }
 
     public String getEmail() {
-        return mEmail;
+        return email;
     }
 
 
@@ -42,12 +42,12 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mEmail);
+        parcel.writeString(email);
         parcel.writeList(mMyServiceRequests);
     }
 
     public User(Parcel in) {
-        this.mEmail = in.readString();
+        this.email = in.readString();
         in.readList(mMyServiceRequests,String.class.getClassLoader());
     }
 

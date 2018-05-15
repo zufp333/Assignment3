@@ -41,6 +41,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     private User mMyUser;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

@@ -92,7 +92,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-                if (mUser == null || FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+                if ( FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
                     // In case the user is logged in anonymously, send him to the SignIn screen:
                     Toast.makeText(ServiceProviderDetailsActivity.this, "Please sign in to order a service.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
@@ -150,13 +150,13 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         ReviewsAdapter reviewsAdapter = new ReviewsAdapter(mReviewsList);
         mRecyclerViewServiceProviderReviews.setAdapter(reviewsAdapter);
 
-        mServiceProviderReviewsRef = FirebaseDatabase.getInstance().getReference("Service providers/" + mKey +"/reviews");
+        mServiceProviderReviewsRef = FirebaseDatabase.getInstance().getReference("Service_providers/" + mKey +"/reviews");
 
         mServiceProviderReviewsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
 
-                        Log.e(TAG, "onDataChange() >> Songs/" + mKey);
+                        Log.e(TAG, "onDataChange() >> Service_providers/" + mKey);
 
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Review review = dataSnapshot.getValue(Review.class);
