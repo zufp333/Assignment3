@@ -57,8 +57,8 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (fbUser.isAnonymous())
-            FirebaseAuth.getInstance().signOut();
+        //if (fbUser.isAnonymous())
+        //    FirebaseAuth.getInstance().signOut();
 
         if (fbUser != null) {
             mMyUserRef = FirebaseDatabase.getInstance().getReference("Users/" + fbUser.getUid());
