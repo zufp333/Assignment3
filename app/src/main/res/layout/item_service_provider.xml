@@ -53,12 +53,11 @@
                 android:id="@+id/provider_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
                 android:text="[phone]"
                 android:textColor="@android:color/holo_blue_dark"
-                card_view:layout_constraintStart_toEndOf="@+id/provider_thumb_image"
-                card_view:layout_constraintTop_toBottomOf="@+id/provider_name" />
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="306dp"
+                tools:layout_editor_absoluteY="16dp" />
 
             <TextView
                 android:id="@+id/provider_service"
@@ -86,11 +85,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="[loctaion]"
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="14sp"
                 card_view:layout_constraintStart_toEndOf="@+id/provider_thumb_image"
-                card_view:layout_constraintTop_toBottomOf="@+id/provider_phone" />
+                card_view:layout_constraintTop_toBottomOf="@+id/provider_service" />
 
             <RatingBar
                 android:id="@+id/provider_rating"

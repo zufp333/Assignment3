@@ -42,6 +42,7 @@ public class ReviewActivity extends Activity {
 
         mKey = getIntent().getStringExtra("key");
         mServiceProvider = getIntent().getParcelableExtra("serviceProvider");
+        mServiceProvider.setPhone(getIntent().getStringExtra("phone"));
         mUser = getIntent().getParcelableExtra("user");
 
         mUserReview = findViewById(R.id.new_user_review);
@@ -132,10 +133,7 @@ public class ReviewActivity extends Activity {
                 }
 
 
-                Intent intent = new Intent(getApplicationContext(),ServiceProviderDetailsActivity.class);
-                intent.putExtra("serviceProvider", mServiceProvider);
-                intent.putExtra("key", mKey);
-                intent.putExtra("user", mUser);
+                Intent intent = new Intent(getApplicationContext(),ServiceProvidersMainActivity.class);
                 startActivity(intent);
                 finish();
 

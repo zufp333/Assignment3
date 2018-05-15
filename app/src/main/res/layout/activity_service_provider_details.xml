@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="[Location]"
-                android:textColor="@android:color/holo_orange_dark"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textViewService"
@@ -66,15 +66,19 @@
 
             <TextView
                 android:id="@+id/textViewPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_width="99dp"
+                android:layout_height="19dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="32dp"
                 android:text="[PHONE]"
-                android:textColor="@android:color/holo_orange_dark"
+                android:textColor="#289013"
                 android:textStyle="bold"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textViewLocation"
-                app:layout_constraintTop_toBottomOf="@+id/textViewYearsOfExperience" />
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonBuyPlay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.203" />
 
             <TextView
                 android:id="@+id/textViewYearsOfExperience"
@@ -82,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="[Years of experience]"
-                android:textColor="@android:color/holo_orange_dark"
+                android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textViewLocation"
@@ -93,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="96dp"
                 android:background="@android:color/holo_orange_light"
                 android:text="[ORDER $X]"
@@ -101,7 +105,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.931" />
+                app:layout_constraintVertical_bias="0.581" />
 
             <ImageView
                 android:id="@+id/imageViewServiceProvider"

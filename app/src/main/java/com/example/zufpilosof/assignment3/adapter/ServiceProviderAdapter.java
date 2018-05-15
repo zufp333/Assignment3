@@ -87,6 +87,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
                 while (i.hasNext()) {
                     if (i.next().equals(serviceProviderKey)) {
                         holder.getPrice().setTextColor(R.color.colorPrimary);
+                        holder.getPhone().setVisibility(View.VISIBLE);
                         break;
                     }
                 }
@@ -142,7 +143,8 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
 
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ServiceProviderDetailsActivity.class);
-                    intent.putExtra("serviceProvider", mSelectedServiceProvider);
+                    intent.putExtra("ServiceProvider", mSelectedServiceProvider);
+                    intent.putExtra("phone", mSelectedServiceProvider.getPhone());
                     intent.putExtra("key", mSelectedServiceProviderKey);
                     intent.putExtra("user",user);
                     context.startActivity(intent);
