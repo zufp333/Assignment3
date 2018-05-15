@@ -123,7 +123,7 @@ public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zuf
         public ServiceProviderViewHolder(Context context, View view) {
             super(view);
 
-            mServiceProviderCardView = (CardView) view.findViewById(R.id.card_view_song);
+            mServiceProviderCardView = (CardView) view.findViewById(R.id.card_view_service_provider);
             mThumbImage = (ImageView) view.findViewById(R.id.provider_thumb_image);
             mName = (TextView) view.findViewById(R.id.provider_name);
             mService = (TextView) view.findViewById(R.id.provider_service);

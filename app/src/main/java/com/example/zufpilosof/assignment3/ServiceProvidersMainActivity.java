@@ -108,11 +108,11 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                Log.e(TAG, "onDataChange(Songs) >> " + snapshot.getKey());
+                Log.e(TAG, "onDataChange(service_providers) >> " + snapshot.getKey());
 
                 updateServiceProvidersList(snapshot);
 
-                Log.e(TAG, "onDataChange(Songs) <<");
+                Log.e(TAG, "onDataChange(service_providers) <<");
 
             }
 
@@ -145,13 +145,13 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onChildChanged(service_providers) >> " + snapshot.getKey());
 
-                ServiceProvider song =snapshot.getValue(ServiceProvider.class);
+                ServiceProvider serciveProvider =snapshot.getValue(ServiceProvider.class);
                 String key = snapshot.getKey();
 
                 for (int sp = 0; sp < mServiceProvidersList.size() ; sp++) {
                     com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
                     if (serviceProviderWithKey.getKey().equals(snapshot.getKey())) {
-                        serviceProviderWithKey.setServiceProvider(song);
+                        serviceProviderWithKey.setServiceProvider(serciveProvider);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
                         break;
                     }
@@ -204,7 +204,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
             ServiceProvider serviceProvider = dataSnapshot.getValue(ServiceProvider.class);
-            Log.e(TAG, "updateSongList() >> adding service provider: " + serviceProvider.getName());
+            Log.e(TAG, "updateServiceProvidersList() >> adding service provider: " + serviceProvider.getName());
             String key = dataSnapshot.getKey();
             mServiceProvidersList.add(new com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey(key,serviceProvider));
         }

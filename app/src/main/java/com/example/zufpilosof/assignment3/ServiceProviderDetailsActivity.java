@@ -152,13 +152,13 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         ReviewsAdapter reviewsAdapter = new ReviewsAdapter(mReviewsList);
         mRecyclerViewServiceProviderReviews.setAdapter(reviewsAdapter);
 
-        mServiceProviderReviewsRef = FirebaseDatabase.getInstance().getReference("Service_providers/" + mKey +"/reviews");
+        mServiceProviderReviewsRef = FirebaseDatabase.getInstance().getReference("service_providers/" + mKey +"/reviews");
 
         mServiceProviderReviewsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
 
-                        Log.e(TAG, "onDataChange() >> Service_providers/" + mKey);
+                        Log.e(TAG, "onDataChange() >> service_providers/" + mKey);
 
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Review review = dataSnapshot.getValue(Review.class);
@@ -188,10 +188,5 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
     }
-
-
-
-
 }

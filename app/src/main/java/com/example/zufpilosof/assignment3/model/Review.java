@@ -8,38 +8,40 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class Review {
-    private String mUserReview;
-    private int mUserRating;
-    private String mUserEmail;
+    private String userReview;
+    private int userRating;
+    private String userEmail;
 
     public Review(String userReview, int userRating, String userEmail) {
-        this.mUserReview = userReview;
-        this.mUserRating = userRating;
-        this.mUserEmail = userEmail;
+        this.userReview = userReview;
+        this.userRating = userRating;
+        this.userEmail = userEmail;
     }
 
     public Review() {
     }
 
     public String getUserReview() {
-        return mUserReview;
+        return userReview;
     }
 
     public int getUserRating() {
-        return mUserRating;
+        return userRating;
     }
 
     public String getUserEmail() {
-        return mUserEmail;
+        return userEmail;
     }
+
 
     @Exclude
     public Map<String, Object> toMap() {
 
         HashMap<String, Object> result = new HashMap<>();
-        result.put("userReview", mUserReview);
-        result.put("userRating", mUserRating);
-        result.put("userEmail", mUserEmail);
+        result.put("userReview", userReview);
+        result.put("userRating", userRating);
+        result.put("userEmail", userEmail);
         return result;
     }
+
 }

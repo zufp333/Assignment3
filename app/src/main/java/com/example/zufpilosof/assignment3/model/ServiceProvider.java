@@ -22,7 +22,7 @@ public class ServiceProvider implements Parcelable {
         this.name = name;
         this.service = service;
         this.location = location;
-       this.thumbImage = thumbImage;
+        this.thumbImage = thumbImage;
         this.phone = phone;
         this.price = price;
         this.rating = rating;
