@@ -7,77 +7,77 @@ import java.util.Map;
 
 public class ServiceProvider implements Parcelable {
 
-    private String mName;
-    private String mService;
-    private String mLocation;
-    private String mPhone;
-    private String mThumbImage;
-    private int mPrice;
-    private int mRating;
-    private int mReviewsCount;
-    private int mYearsOfExperience;
+    private String name;
+    private String service;
+    private String location;
+    private String phone;
+    private String thumbImage;
+    private int price;
+    private int rating;
+    private int reviewsCount;
+    private int yearsOfExperience;
     private Map<String,Review> reviews;
 
     public ServiceProvider(String name, String service, String location, String thumbImage, String phone, int price, int rating, int reviewsCount, int yearsOfExperience, Map<String,Review> reviews) {
-        this.mName = name;
-        this.mService = service;
-        this.mLocation = location;
-       this.mThumbImage = thumbImage;
-        this.mPhone = phone;
-        this.mPrice = price;
-        this.mRating = rating;
-        this.mReviewsCount = reviewsCount;
-        this.mYearsOfExperience = yearsOfExperience;
+        this.name = name;
+        this.service = service;
+        this.location = location;
+       this.thumbImage = thumbImage;
+        this.phone = phone;
+        this.price = price;
+        this.rating = rating;
+        this.reviewsCount = reviewsCount;
+        this.yearsOfExperience = yearsOfExperience;
         this.reviews = reviews;
     }
 
     public ServiceProvider() {
     }
 
-    public String getName() { return mName; }
+    public String getName() { return name; }
 
-    public void setName(String mName) { this.mName = mName; }
+    public void setName(String mName) { this.name = mName; }
 
-    public String getService() { return mService; }
+    public String getService() { return service; }
 
-    public void setService(String mService) { this.mService = mService; }
+    public void setService(String mService) { this.service = mService; }
 
-    public String getLocation() { return mLocation; }
+    public String getLocation() { return location; }
 
-    public void setLocation(String mLocation) { this.mLocation = mLocation; }
+    public void setLocation(String mLocation) { this.location = mLocation; }
 
-    public String getThumbImage() { return mThumbImage; }
+    public String getThumbImage() { return thumbImage; }
 
-    public void setThumbImage(String mThumbImage) { this.mThumbImage = mThumbImage; }
+    public void setThumbImage(String mThumbImage) { this.thumbImage = mThumbImage; }
 
-    public String getPhone() { return mPhone; }
+    public String getPhone() { return phone; }
 
-    public void setphone(String phone) { this.mPhone = phone; }
+    public void setphone(String phone) { this.phone = phone; }
 
-    public int getPrice() { return mPrice; }
+    public int getPrice() { return price; }
 
-    public void setPrice(int mPrice) { this.mPrice = mPrice; }
+    public void setPrice(int mPrice) { this.price = mPrice; }
 
-    public int getRating() { return mRating; }
+    public int getRating() { return rating; }
 
-    public void setRating(int mRating) { this.mRating = mRating; }
+    public void setRating(int mRating) { this.rating = mRating; }
 
-    public int getReviewsCount() { return mReviewsCount; }
+    public int getReviewsCount() { return reviewsCount; }
 
-    public void setReviewsCount(int mReviewsCount) { this.mReviewsCount = mReviewsCount; }
+    public void setReviewsCount(int mReviewsCount) { this.reviewsCount = mReviewsCount; }
 
-    public int getYearsOfExperience() { return mYearsOfExperience; }
+    public int getYearsOfExperience() { return yearsOfExperience; }
 
-    public void setYearsOfExperience(int YearsOfExperience) { this.mYearsOfExperience = YearsOfExperience; }
+    public void setYearsOfExperience(int YearsOfExperience) { this.yearsOfExperience = YearsOfExperience; }
 
     public Map<String, Review> getReviews() { return reviews; }
 
     public void setReviews(Map<String, Review> reviews) { this.reviews = reviews; }
 
 
-    public void incrementReviewCount() { mReviewsCount++;}
+    public void incrementReviewCount() { reviewsCount++;}
 
-    public void incrementRating(int newRating) { mRating +=newRating;}
+    public void incrementRating(int newRating) { rating +=newRating;}
 
     @Override
     public int describeContents() {
@@ -86,25 +86,25 @@ public class ServiceProvider implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mName);
-        parcel.writeString(mService);
-        parcel.writeString(mLocation);
-        parcel.writeString(mThumbImage);
-        parcel.writeInt(mPrice);
-        parcel.writeInt(mRating);
-        parcel.writeInt(mReviewsCount);
-        parcel.writeInt(mYearsOfExperience);
+        parcel.writeString(name);
+        parcel.writeString(service);
+        parcel.writeString(location);
+        parcel.writeString(thumbImage);
+        parcel.writeInt(price);
+        parcel.writeInt(rating);
+        parcel.writeInt(reviewsCount);
+        parcel.writeInt(yearsOfExperience);
     }
 
     private ServiceProvider(Parcel in){
-        this.mName = in.readString();
-        this.mService = in.readString();
-        this.mLocation = in.readString();
-        this.mThumbImage = in.readString();
-        this.mPrice = in.readInt();
-        this.mRating = in.readInt();
-        this.mReviewsCount = in.readInt();
-        this.mYearsOfExperience = in.readInt();
+        this.name = in.readString();
+        this.service = in.readString();
+        this.location = in.readString();
+        this.thumbImage = in.readString();
+        this.price = in.readInt();
+        this.rating = in.readInt();
+        this.reviewsCount = in.readInt();
+        this.yearsOfExperience = in.readInt();
     }
 
     public static final Parcelable.Creator<ServiceProvider> CREATOR = new Parcelable.Creator<ServiceProvider>() {

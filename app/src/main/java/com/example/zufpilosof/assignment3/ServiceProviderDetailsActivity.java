@@ -1,6 +1,7 @@
 package com.example.zufpilosof.assignment3;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         mOrderService.setText("ORDER $" + mServiceProvider.getPrice());
         if (mUser != null) {
             Iterator i = mUser.getMyServiceRequests().iterator();
+
             while (i.hasNext()) {
                 if (i.next().equals(mKey)) {
                     mServiceProviderWasPurchased = true;
@@ -103,7 +105,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                     if (mServiceProviderWasPurchased) {
                         Log.e(TAG, "mOrderService.onClick() >> Playing purchased mServiceProvider");
                         //User purchased the mServiceProvider so he can play it
-                        //playCurrentSong(mServiceProvider.getFile());
+                        callServiceProvider();
                     } else {
                             Log.e(TAG, "mOrderService.onClick() >> Purchase the mServiceProvider");
                             mUser.getMyServiceRequests().add(mKey);
@@ -175,6 +177,12 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                 });
         Log.e(TAG, "onCreate() <<");
 
+    }
+
+    private void callServiceProvider() {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + mServiceProvider.getPhone()));
+        startActivity(intent);
     }
 
     @Override
