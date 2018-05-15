@@ -181,6 +181,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
     private void callServiceProvider() {
         Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.putExtra("phone_number",mServiceProvider.getPhone());
         intent.setData(Uri.parse("Tel: " + mServiceProvider.getPhone()));
         startActivity(intent);
     }

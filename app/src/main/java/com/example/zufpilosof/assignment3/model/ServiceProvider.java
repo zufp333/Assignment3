@@ -52,7 +52,7 @@ public class ServiceProvider implements Parcelable {
 
     public String getPhone() { return phone; }
 
-    public void setphone(String phone) { this.phone = phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
     public int getPrice() { return price; }
 
