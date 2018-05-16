@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HandyMan</string>
+    <string name="signout">SignOut</string>
 </resources>

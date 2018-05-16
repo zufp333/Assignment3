@@ -101,9 +101,6 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                 if ( FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
                     // In case the user is logged in anonymously, send him to the SignIn screen:
                     Toast.makeText(ServiceProviderDetailsActivity.this, "Please sign in to order a service.", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     Log.e(TAG, "mOrderService.onClick() >> " + mServiceProvider.getName());
                     if (mServiceProviderWasPurchased) {
@@ -134,16 +131,21 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                public void onClick(View view) {
                    Log.e(TAG, "mWriteReview.onClick() >>");
 
+                   if ( FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
+                       Toast.makeText(ServiceProviderDetailsActivity.this, "Please sign in to write a review.", Toast.LENGTH_LONG).show();
 
-                   Intent intent = new Intent(getApplicationContext(),ReviewActivity.class);
-                   intent.putExtra("serviceProvider", mServiceProvider);
-                   intent.putExtra("phone", mServiceProvider.getPhone());
-                   intent.putExtra("key", mKey);
-                   intent.putExtra("user", mUser);
+                   else {
 
-                   startActivity(intent);
-                   finish();
+                       Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
+                       intent.putExtra("serviceProvider", mServiceProvider);
+                       intent.putExtra("phone", mServiceProvider.getPhone());
+                       intent.putExtra("key", mKey);
+                       intent.putExtra("user", mUser);
 
+                       startActivity(intent);
+                       finish();
+
+                   }
                    Log.e(TAG, "mWriteReview.onClick() <<");
                }
            }
