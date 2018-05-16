@@ -98,7 +98,6 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         mOrderService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
                 if ( FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
                     // In case the user is logged in anonymously, send him to the SignIn screen:
                     Toast.makeText(ServiceProviderDetailsActivity.this, "Please sign in to order a service.", Toast.LENGTH_LONG).show();

@@ -8,21 +8,22 @@
 
     <Button
         android:id="@+id/button_sign_out"
-        android:layout_width="86dp"
-        android:layout_height="35dp"
+        android:layout_width="93dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="onSignOutButtonCLick"
         android:text="SignOut"
+        app:layout_constraintBottom_toTopOf="@+id/service_providers_list"
         app:layout_constraintEnd_toEndOf="@+id/filter_bar_container"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="120dp" />
+        app:layout_constraintHorizontal_bias="0.967"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/filter_bar_container"
         android:layout_width="385dp"
-        android:layout_height="155dp"
+        android:layout_height="156dp"
         android:background="@android:color/darker_gray"
         android:paddingBottom="12dp"
         android:paddingLeft="12dp"
