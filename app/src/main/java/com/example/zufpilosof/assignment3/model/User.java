@@ -24,8 +24,8 @@ public class User implements Parcelable {
     public String getEmail() {
         return email;
     }
-
-
+    public int getTotalPurchase() { return totalPurchase; }
+    public int getMyServiceProvidersCount() {return myServiceRequests!=null ? myServiceRequests.size() : 0;}
     public void updateTotalPurchase(int newPurcahsePrice) {
         this.totalPurchase += newPurcahsePrice;
     }

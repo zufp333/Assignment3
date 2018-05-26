@@ -30,6 +30,7 @@ public class SignInActivity extends Activity {
     private EditText mEmail;
     private EditText mPass;
     private boolean mIsSignup;
+    private AnalyticsManager analyticsManager = AnalyticsManager.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +81,16 @@ public class SignInActivity extends Activity {
 
                     Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 } else {
-
+                    String method = "user/password";
                     if (mIsSignup) {
                         createNewUser();
+                        analyticsManager.trackSignupEvent(method);
+                    } else {
+                        analyticsManager.trackLoginEvent(method);
                     }
+
+                    analyticsManager.setUserID(mAuth.getCurrentUser().getUid(),mIsSignup);
+                    analyticsManager.setUserProperty("email",mAuth.getCurrentUser().getEmail());
 
                     Intent intent = new Intent(getApplicationContext(), ServiceProvidersMainActivity.class);
                     startActivity(intent);

@@ -25,7 +25,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
+        AnalyticsManager.getInstance().init(getApplicationContext());
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

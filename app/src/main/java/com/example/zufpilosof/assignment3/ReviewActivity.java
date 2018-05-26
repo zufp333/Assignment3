@@ -27,6 +27,7 @@ public class ReviewActivity extends Activity {
     private String mKey;
     private User mUser;
     private int mPrevRating = -1;
+    private AnalyticsManager analyticsManager = AnalyticsManager.getInstance();
 
     private TextView mUserReview;
     private RatingBar mUserRating;
@@ -107,6 +108,7 @@ public class ReviewActivity extends Activity {
                     serviceProvider.incrementRating((int) mUserRating.getRating() - mPrevRating);
                 }
 
+                analyticsManager.trackServiceProviderRating(serviceProvider,(int)mUserRating.getRating());
                 mutableData.setValue(serviceProvider);
                 Log.e(TAG, "doTransaction() << mServiceProvider was set");
                 return Transaction.success(mutableData);

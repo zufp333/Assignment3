@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +37,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     private ServiceProvider mServiceProvider;
     private String mKey;
     private User mUser;
+    private AnalyticsManager analyticsManager = AnalyticsManager.getInstance();
 
     private FloatingActionButton mWriteReview;
     private Button mOrderService;
@@ -65,6 +65,8 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         mServiceProvider.setPhone(getIntent().getStringExtra("phone"));
         mUser = getIntent().getParcelableExtra("user");
         mPhoneTextView = ((TextView) findViewById(R.id.textViewPhone));
+
+        logServiceProviderEvent("serviceProvider_view");
 
         // Load the image using Glide
         Glide.with(this)
@@ -116,6 +118,10 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                             mServiceProviderWasPurchased = true;
                             mPhoneTextView.setVisibility(View.VISIBLE);
                             mOrderService.setText("CALL");
+
+                        analyticsManager.trackPurchase(mServiceProvider);;
+                        analyticsManager.setUserProperty("total_purchase",Integer.toString(mUser.getTotalPurchase()));
+                        analyticsManager.setUserProperty("my_serviceProvides_count",Integer.toString(mUser.getMyServiceProvidersCount()));
                     }
                     Log.e(TAG, "callServiceProvider.onClick() <<");
                 }
@@ -196,5 +202,9 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+    private void logServiceProviderEvent(String event) {
+
+        analyticsManager.trackServiceProviderEvent(event,mServiceProvider);
     }
 }

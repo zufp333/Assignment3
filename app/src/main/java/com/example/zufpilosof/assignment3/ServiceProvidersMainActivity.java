@@ -24,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey;
 import com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter;
 import com.example.zufpilosof.assignment3.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     private final String TAG = "ServiceProvidersMainActivity";
     private DatabaseReference mAllServicesRef;
     private DatabaseReference mMyUserRef;
-
+    private AnalyticsManager analyticsManager = AnalyticsManager.getInstance();
     private List<ServiceProviderWithKey> mServiceProvidersList = new ArrayList<>();
 
     private RecyclerView mRecyclerView;
@@ -225,6 +224,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
         if (searchString != null && !searchString.isEmpty()) {
             searchServiceProvider = mAllServicesRef.orderByChild("service").startAt(searchString).endAt(searchString + "\uf8ff");
+            analyticsManager.trackSearchEvent(searchString);
         } else {
             searchServiceProvider = mAllServicesRef.orderByChild(orderBy);
         }
