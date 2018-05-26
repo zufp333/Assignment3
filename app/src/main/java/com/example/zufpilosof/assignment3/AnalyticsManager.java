@@ -75,18 +75,33 @@ public class AnalyticsManager {
         params.putString(FirebaseAnalytics.Param.SEARCH_TERM, searchString);
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH,params);
 
+        //MixPanel
         Map<String, Object> eventParams = new HashMap<String, Object>();
         eventParams.put("search term", searchString);
         mMixpanel.trackMap(eventName,eventParams);
     }
 
+    public void trackCallEvent(String event , ServiceProvider serviceProvider) {
+        Bundle params = new Bundle();
+
+        params.putString("serviceProvider_phone",serviceProvider.getPhone());
+        mFirebaseAnalytics.logEvent(event,params);
+
+        Map<String, Object> eventParams = new HashMap<String, Object>();
+        eventParams.put("serviceProvider_phone", serviceProvider.getPhone());
+        mMixpanel.trackMap(event,eventParams);
+    }
+
     public void trackSignupEvent(String signupMethod) {
 
         String eventName = "signup";
+
+        //Firebase
         Bundle params = new Bundle();
         params.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, signupMethod);
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP,params);
 
+        //MixPanel
         Map<String, Object> eventParams = new HashMap<String, Object>();
         eventParams.put("signup method", signupMethod);
         mMixpanel.trackMap(eventName,eventParams);
@@ -96,10 +111,13 @@ public class AnalyticsManager {
     public void trackLoginEvent(String loginMethod) {
 
         String eventName = "login";
+
+        //FireBase
         Bundle params = new Bundle();
         params.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, loginMethod);
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN,params);
 
+        //MixPanel
         Map<String, Object> eventParams = new HashMap<String, Object>();
         eventParams.put("signup method", loginMethod);
         mMixpanel.trackMap(eventName,eventParams);
@@ -128,7 +146,6 @@ public class AnalyticsManager {
         eventParams.put("serviceProvider_yearsOfExperience",String.valueOf(serviceProvider.getYearsOfExperience()));
 
         mMixpanel.trackMap(event,eventParams);
-
     }
 
     public void trackPurchase(ServiceProvider serviceProvider) {
@@ -147,11 +164,7 @@ public class AnalyticsManager {
         eventParams.put("serviceProvider_rating",String.valueOf(serviceProvider.getRating()));
         eventParams.put("serviceProvider_yearsOfExperience",String.valueOf(serviceProvider.getYearsOfExperience()));
 
-
         mMixpanel.trackMap(eventName,eventParams);
-
-
-
     }
 
     public void trackServiceProviderRating(ServiceProvider serviceProvider , int userRating) {

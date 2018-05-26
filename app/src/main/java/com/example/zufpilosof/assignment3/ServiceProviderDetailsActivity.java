@@ -194,6 +194,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     }
 
     private void callServiceProvider() {
+        analyticsManager.trackCallEvent("serviceProvider_call", mServiceProvider);
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + mServiceProvider.getPhone()));
         startActivity(intent);
