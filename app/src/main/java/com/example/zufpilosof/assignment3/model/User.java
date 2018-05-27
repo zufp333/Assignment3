@@ -34,6 +34,9 @@ public class User implements Parcelable {
         return myServiceRequests;
     }
 
+    public void setTotalPurchase(int totalPurchase) {
+        this.totalPurchase = totalPurchase;
+    }
 
     @Override
     public int describeContents() {

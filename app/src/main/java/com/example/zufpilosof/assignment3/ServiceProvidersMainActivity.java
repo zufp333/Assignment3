@@ -67,8 +67,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot snapshot) {
 
                     Log.e(TAG, "onDataChange(User) >> " + snapshot.getKey());
-
-                    // fix always null:
+                    
                     mMyUser = snapshot.getValue(User.class);
 
                     getAllServiceProviders();
@@ -223,6 +222,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         mServiceProvidersList.clear();
 
         if (searchString != null && !searchString.isEmpty()) {
+            searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
             searchServiceProvider = mAllServicesRef.orderByChild("service").startAt(searchString).endAt(searchString + "\uf8ff");
             analyticsManager.trackSearchEvent(searchString);
         } else {

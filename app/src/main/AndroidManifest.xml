@@ -23,6 +23,17 @@
         <activity android:name=".ServiceProvidersMainActivity"></activity>
         <activity android:name=".ServiceProviderDetailsActivity"></activity>
         <activity android:name=".ReviewActivity"></activity>
+        <service android:name=".PushTokenHandler">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".PushNotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 
