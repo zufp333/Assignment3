@@ -86,7 +86,7 @@ public class PushNotificationService extends FirebaseMessagingService {
                 }
             }
 
-            Intent intent = new Intent(this, ServiceProvidersMainActivity.class);
+            Intent intent = new Intent(this, ReviewActivity.class);
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
