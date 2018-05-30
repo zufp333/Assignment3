@@ -119,7 +119,8 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                             mPhoneTextView.setVisibility(View.VISIBLE);
                             mOrderService.setText("CALL");
 
-                        analyticsManager.trackPurchase(mServiceProvider);;
+                        analyticsManager.trackPurchase(mServiceProvider);
+                        analyticsManager.setUserProperty("last_service",mServiceProvider.getService());
                         analyticsManager.setUserProperty("total_purchase",Integer.toString(mUser.getTotalPurchase()));
                         analyticsManager.setUserProperty("my_serviceProvides_count",Integer.toString(mUser.getMyServiceProvidersCount()));
                     }

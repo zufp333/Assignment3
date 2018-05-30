@@ -24,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey;
 import com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter;
 import com.example.zufpilosof.assignment3.model.User;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_providers_main);
+        Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.service_providers_list);
         mRecyclerView.setHasFixedSize(true);
@@ -93,7 +96,6 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         mServiceProviderAdapter = new com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter(mServiceProvidersList, mMyUser);
         mRecyclerView.setAdapter(mServiceProviderAdapter);
 
-      //  getAllServiceProvidersUsingValueListenrs();fix
         getAllServiceProvidersUsingChildListeners();
 
 
