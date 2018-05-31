@@ -9,18 +9,10 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.zufpilosof.assignment3.model.ServiceProvider;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by zuf pilosof on 24-May-18.
@@ -29,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PushNotificationService extends FirebaseMessagingService {
 
 
-    private static final String TAG = "PushNotificationService";
+    private static final String TAG ="PushNotificationService";
 
 
     public PushNotificationService() {
@@ -42,11 +34,11 @@ public class PushNotificationService extends FirebaseMessagingService {
         Log.e(TAG, "onMessageReceived() >>");
         String title = "title";
         String body = "body";
-        String key = "key";
         int icon = R.drawable.ic_notifications_black_24dp;
         Uri soundRri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Map<String, String> data;
+        Map<String,String> data;
         RemoteMessage.Notification notification;
+        Intent intent;
 
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -59,7 +51,7 @@ public class PushNotificationService extends FirebaseMessagingService {
             notification = remoteMessage.getNotification();
             title = notification.getTitle();
             body = notification.getBody();
-            Log.e(TAG, "onMessageReceived() >> title: " + title + " , body=" + body);
+            Log.e(TAG, "onMessageReceived() >> title: " + title + " , body="+body);
         }
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() == 0) {
@@ -82,13 +74,8 @@ public class PushNotificationService extends FirebaseMessagingService {
             body = value;
         }
 
-        value = data.get("key");
-        if (value != null) {
-            key = value;
-        }
-
         value = data.get("small_icon");
-        if (value != null && value.equals("alarm")) {
+        if (value != null  && value.equals("alarm")) {
             icon = R.drawable.ic_alarm_black_24dp;
         }
         value = data.get("sound");
@@ -99,14 +86,27 @@ public class PushNotificationService extends FirebaseMessagingService {
                 soundRri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
-
-        Intent intent = new Intent(this, ReviewActivity.class);
+        value = data.get("action");
+        if (value != null && value.contains("go to air conditioning")) {
+            intent = new Intent(this, ServiceProviderDetailsActivity.class);
+            value = data.get("key");
+            intent.putExtra("key", value);
+            value = data.get("service_provider");
+            intent.putExtra("service_provider", value);
+            value = data.get("phone");
+            intent.putExtra("phone", value);
+            value = data.get("user");
+            intent.putExtra("user", value);
+        }
+        else{
+            intent = new Intent(this, ServiceProvidersMainActivity.class);
+        }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, null)
@@ -117,27 +117,13 @@ public class PushNotificationService extends FirebaseMessagingService {
                         .setSound(soundRri);
 
 
-        value = data.get("action");
-        if (value != null) {
-            if (value.contains("share")) {
-                PendingIntent pendingShareIntent = PendingIntent.getActivity(this, 0, intent,
-                        PendingIntent.FLAG_ONE_SHOT);
-                notificationBuilder.addAction(new NotificationCompat.Action(R.drawable.ic_share_black_24dp, "Share", pendingShareIntent));
-            }
-            if (value.contains("go to sale")) {
-                PendingIntent pendingShareIntent = PendingIntent.getActivity(this, 0, intent,
-                        PendingIntent.FLAG_ONE_SHOT);
-                notificationBuilder.addAction(new NotificationCompat.Action(R.drawable.ic_shopping_cart_black_24dp, "Go to sale!", pendingShareIntent));
-            }
-            if (value.contains("go to air condition")) {
 
-            }
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(0, notificationBuilder.build());
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            Log.e(TAG, "onMessageReceived() <<");
+        notificationManager.notify(0 , notificationBuilder.build());
 
-        }
+        Log.e(TAG, "onMessageReceived() <<");
+
     }
 }

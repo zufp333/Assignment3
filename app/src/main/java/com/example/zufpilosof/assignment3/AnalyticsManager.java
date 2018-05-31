@@ -197,4 +197,19 @@ public class AnalyticsManager {
 
         mMixpanel.trackMap(eventName,eventParams);
     }
+
+
+    public void trackAnonymousLogin(String loginMethod) {
+        String eventName = "login";
+
+        //FireBase
+        Bundle params = new Bundle();
+        params.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, loginMethod);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN,params);
+
+        //MixPanel
+        Map<String, Object> eventParams = new HashMap<String, Object>();
+        eventParams.put("signup method", loginMethod);
+        mMixpanel.trackMap(eventName,eventParams);
+    }
 }

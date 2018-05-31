@@ -35,6 +35,7 @@ public class SignInActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
@@ -106,7 +107,7 @@ public class SignInActivity extends Activity {
 
     public void onSkipButtonClick(View v) {
         Log.e(TAG, "onSkipButtonClick() >>");
-
+        String method = "Anonymous Login";
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -118,7 +119,7 @@ public class SignInActivity extends Activity {
                         }
                     }
                 });
-
+        analyticsManager.trackAnonymousLogin(method);
         Intent intent = new Intent(getApplicationContext(),ServiceProvidersMainActivity.class);
         startActivity(intent);
         finish();

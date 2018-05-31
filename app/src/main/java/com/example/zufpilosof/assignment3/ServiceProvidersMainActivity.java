@@ -47,10 +47,10 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.e(TAG, "onCreate() >>");
-
+        Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_providers_main);
-        Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
+      //  Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.service_providers_list);
         mRecyclerView.setHasFixedSize(true);
