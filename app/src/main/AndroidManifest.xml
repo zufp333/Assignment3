@@ -21,7 +21,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ServiceProvidersMainActivity"></activity>
-        <activity android:name=".ServiceProviderDetailsActivity"></activity>
+        <activity android:name=".ServiceProviderDetailsActivity">
+            <intent-filter>
+                <action android:name="ServiceProviderDetailsActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ReviewActivity"></activity>
         <service android:name=".PushTokenHandler">
             <intent-filter>
