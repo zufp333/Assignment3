@@ -1,6 +1,8 @@
 package com.example.zufpilosof.assignment3;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -40,7 +43,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ServiceProviderAdapter mServiceProviderAdapter;
     private User mMyUser;
-
+    private String mSearch = null;
 
 
     @Override
@@ -50,7 +53,8 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
         Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_providers_main);
-      //  Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
+        mSearch = getIntent().getStringExtra("field");
+        Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.service_providers_list);
         mRecyclerView.setHasFixedSize(true);
@@ -88,6 +92,13 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
             Log.e(TAG, "onCreate() <<");
         } else {
             getAllServiceProviders();
+        }
+        if (mSearch != null)
+        {
+           ((EditText)findViewById(R.id.edit_text_search_service)).setText(mSearch);
+           ((Button)findViewById((R.id.button_search))).getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+
+            //((Button)findViewById((R.id.button_search))).setBackgroundColor(Color.rgb(226, 11, 11));
         }
     }
 
@@ -214,7 +225,8 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
 
     public void onSearchButtonClick(View v) {
-
+        ((Button)findViewById((R.id.button_search))).getBackground().clearColorFilter();
+        //((Button)findViewById((R.id.button_search))).setBackgroundColor(Color.TRANSPARENT);
         String searchString = ((EditText)findViewById(R.id.edit_text_search_service)).getText().toString();
         String orderBy = ((RadioButton)findViewById(R.id.radioButtonByYearsOfExperience)).isChecked() ? "yearsOfExperience" : "price";
         Query searchServiceProvider;

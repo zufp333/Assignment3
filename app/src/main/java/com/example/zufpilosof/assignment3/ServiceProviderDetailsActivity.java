@@ -65,7 +65,6 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         mServiceProvider.setPhone(getIntent().getStringExtra("phone"));
         mUser = getIntent().getParcelableExtra("user");
         mPhoneTextView = ((TextView) findViewById(R.id.textViewPhone));
-
         logServiceProviderEvent("serviceProvider_view");
 
         // Load the image using Glide
@@ -191,7 +190,6 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                     }
                 });
         Log.e(TAG, "onCreate() <<");
-
     }
 
     private void callServiceProvider() {

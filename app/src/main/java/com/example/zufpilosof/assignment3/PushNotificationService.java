@@ -86,20 +86,13 @@ public class PushNotificationService extends FirebaseMessagingService {
                 soundRri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }
         }
+
+        intent = new Intent(this, ServiceProvidersMainActivity.class);
+
         value = data.get("action");
-        if (value != null && value.contains("go to air conditioning")) {
-            intent = new Intent(this, ServiceProviderDetailsActivity.class);
-            value = data.get("key");
-            intent.putExtra("key", value);
-            value = data.get("service_provider");
-            intent.putExtra("service_provider", value);
-            value = data.get("phone");
-            intent.putExtra("phone", value);
-            value = data.get("user");
-            intent.putExtra("user", value);
-        }
-        else{
-            intent = new Intent(this, ServiceProvidersMainActivity.class);
+        if (value != null && value.contains("search")) {
+            value = data.get("field");
+            intent.putExtra("field", value);
         }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
