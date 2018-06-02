@@ -213,7 +213,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * Handles the purchase
      * <p>Note: Notice that for each purchase, we check if signature is valid on the client.
      * It's recommended to move this check into your backend.
-     * See {@link Security#verifyPurchase(String, String, String)}
+     * See {@link com.example.zufpilosof.assignment3.Security#verifyPurchase(String, String, String)}
      * </p>
      * @param purchase Purchase to be handled
      */
@@ -278,7 +278,7 @@ public class BillingManager implements PurchasesUpdatedListener {
         }
 
         try {
-            return Security.verifyPurchase(BASE_64_ENCODED_PUBLIC_KEY, signedData, signature);
+            return com.example.zufpilosof.assignment3.Security.verifyPurchase(BASE_64_ENCODED_PUBLIC_KEY, signedData, signature);
         } catch (IOException e) {
             Log.e(TAG, "Got an exception trying to validate a purchase: " + e);
             return false;
