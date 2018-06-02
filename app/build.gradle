@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        //config { fix
-        //    keyAlias 'paymentdemo'
-        //    keyPassword 'paymentdemo'
-        //    storeFile file('/Applications/Android Studio.app/Contents/bin/paymentdemo.jks')
-        //    storePassword 'paymentdemo'
-        //}
+        config {
+            keyAlias 'paymentdemo'
+            keyPassword 'paymentdemo'
+            storeFile file('/Applications/Android Studio.app/Contents/bin/paymentdemo.jks')
+            storePassword 'paymentdemo'
+        }
     }
     compileSdkVersion 26
     defaultConfig {
@@ -22,7 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
 
         }
     }
