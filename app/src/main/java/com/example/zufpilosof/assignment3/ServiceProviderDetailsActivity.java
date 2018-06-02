@@ -1,6 +1,8 @@
 package com.example.zufpilosof.assignment3;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.Purchase;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ServiceProviderDetailsActivity extends AppCompatActivity {
+public class ServiceProviderDetailsActivity extends AppCompatActivity implements BillingManager.BillingUpdatesListener{
 
     public final String TAG = "ServiceProviderDetailsActivity";
     private ServiceProvider mServiceProvider;
@@ -51,12 +55,22 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     private boolean mServiceProviderWasPurchased;
 
     private  TextView mPhoneTextView;
+    private BillingManager mBillingManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.e(TAG, "onCreate() >>");
-
+        mBillingManager = new BillingManager(this,this);
+        //try {
+        //    PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+        //    TextView tvVersion = findViewById(R.id.textViewVersion);
+        //
+        //    tvVersion.setText(pInfo.versionName + "."+ String.valueOf(pInfo.versionCode));
+        //
+        //} catch (PackageManager.NameNotFoundException e) {
+        //    e.printStackTrace();
+        //}
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_provider_details);
 
@@ -114,6 +128,13 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                             mUser.updateTotalPurchase(mServiceProvider.getPrice());
                             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
                             userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mUser);
+
+                            // Initiate the billing flow:
+                            String product = mServiceProvider.getName();
+                            String sku = BillingClient.SkuType.INAPP;
+                            mBillingManager.initiatePurchaseFlow(product,sku);
+
+
                             mServiceProviderWasPurchased = true;
                             mPhoneTextView.setVisibility(View.VISIBLE);
                             mOrderService.setText("CALL");
@@ -206,5 +227,57 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     private void logServiceProviderEvent(String event) {
 
         analyticsManager.trackServiceProviderEvent(event,mServiceProvider);
+    }
+
+    public void onBillingClientSetupFinished() {
+
+        Log.e(TAG,"onBillingSetupFinished() >>");
+
+        Log.e(TAG,"onBillingSetupFinished() <<");
+
+    }
+
+    public void onConsumeFinished(String token, @BillingClient.BillingResponse int result) {
+
+        Log.e(TAG,"onConsumeFinished() >> result:"+result+" ,token:"+token);
+
+
+        if (result == BillingClient.BillingResponse.OK) {
+            displayMessage("Product with token:"+ token+ " was consumed successfully");
+        } else {
+            displayMessage("Error consuming product with token:" + token + " , error code:"+result);
+        }
+
+        Log.e(TAG,"onConsumeFinished() <<");
+
+    }
+
+    public void onPurchasesUpdated(int resultCode,List<Purchase> purchases){
+
+        Log.e(TAG,"onPurchasesUpdated() >> ");
+
+        if (resultCode != BillingClient.BillingResponse.OK) {
+            Log.e(TAG,"onPurchasesUpdated() << Error:"+resultCode);
+            return;
+        }
+
+        for (Purchase purchase : purchases) {
+            Log.e(TAG, "onPurchasesUpdated() >> " + purchase.toString());
+
+            displayMessage("onPurchasesUpdated() >> " + purchase.getSku());
+
+            if (purchase.getSku().contains("credit")) {
+                Log.e(TAG, "onPurchasesUpdated() >> consuming " + purchase.getSku());
+                //Only consume  one time product (subscription can't be consumed).
+                mBillingManager.consumeAsync(purchase.getPurchaseToken());
+            }
+            //Update the server...
+        }
+
+        Log.e(TAG,"onPurchasesUpdated() <<");
+    }
+    public void displayMessage(String msg) {
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+
     }
 }

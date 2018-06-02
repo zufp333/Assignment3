@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        //config { fix
+        //    keyAlias 'paymentdemo'
+        //    keyPassword 'paymentdemo'
+        //    storeFile file('/Applications/Android Studio.app/Contents/bin/paymentdemo.jks')
+        //    storePassword 'paymentdemo'
+        //}
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.zufpilosof.assignment3"
@@ -14,6 +22,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config
+
         }
     }
 }
@@ -40,6 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.0.4'
     implementation 'com.mixpanel.android:mixpanel-android:5.+'
     implementation "com.google.android.gms:play-services-gcm:11.0.4"
+    implementation 'com.android.billingclient:billing:1.1'
 }
 
 
