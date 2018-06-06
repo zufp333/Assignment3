@@ -11,7 +11,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.zufpilosof.assignment3"
+        applicationId "com.mta.zufpilosof.assignment3"
         minSdkVersion 24
         targetSdkVersion 26
         versionCode 1

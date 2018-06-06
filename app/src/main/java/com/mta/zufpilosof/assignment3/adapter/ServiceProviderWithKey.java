@@ -1,6 +1,6 @@
-package com.example.zufpilosof.assignment3.adapter;
+package com.mta.zufpilosof.assignment3.adapter;
 
-import com.example.zufpilosof.assignment3.model.ServiceProvider;
+import com.mta.zufpilosof.assignment3.model.ServiceProvider;
 
 
 public class ServiceProviderWithKey {

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:21826983071:android:19d824d71ab52df3",
         "android_client_info": {
-          "package_name": "com.example.zufpilosof.assignment3"
+          "package_name": "com.mta.zufpilosof.assignment3"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "21826983071-sqgrnmts3edn98n6pgan4vit6kln2nam.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.zufpilosof.assignment3",
+            "package_name": "com.mta.zufpilosof.assignment3",
             "certificate_hash": "ad5943da26137a8a924a2a564bf85c7061bcf759"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "21826983071-djvgaldcl341gr53hs61h24jc825okas.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.zufpilosof.assignment3",
+            "package_name": "com.mta.zufpilosof.assignment3",
             "certificate_hash": "4e0e0fc7a3d4bcc2232ebfd5f4d5618821dc2727"
           }
         },

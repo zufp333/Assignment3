@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3;
+package com.mta.zufpilosof.assignment3;
 
 /**
  * Created by zuf pilosof on 24-May-18.
@@ -7,7 +7,7 @@ package com.example.zufpilosof.assignment3;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.example.zufpilosof.assignment3.model.ServiceProvider;
+import com.mta.zufpilosof.assignment3.model.ServiceProvider;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 

@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3;
+package com.mta.zufpilosof.assignment3;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.example.zufpilosof.assignment3.model.User;
+import com.mta.zufpilosof.assignment3.model.User;
 
 /**
  * Created by zuf pilosof on 08-May-18.

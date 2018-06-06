@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3;
+package com.mta.zufpilosof.assignment3;
 
 /**
  * Created by zuf pilosof on 6/2/2018.
@@ -70,7 +70,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      *
      * Instead of just storing the entire literal string here embedded in the
      * program,  construct the key at runtime from pieces or
-     * use bit manipulation (for example, XOR with some other string) to hide
+     * use bit manipulation (for mta, XOR with some other string) to hide
      * the actual key.  The key itself is not secret information, but we don't
      * want to make it easy for an attacker to replace the public key with one
      * of their own and then fake messages from the server.
@@ -213,7 +213,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * Handles the purchase
      * <p>Note: Notice that for each purchase, we check if signature is valid on the client.
      * It's recommended to move this check into your backend.
-     * See {@link com.example.zufpilosof.assignment3.Security#verifyPurchase(String, String, String)}
+     * See {@link com.mta.zufpilosof.assignment3.Security#verifyPurchase(String, String, String)}
      * </p>
      * @param purchase Purchase to be handled
      */
@@ -278,7 +278,7 @@ public class BillingManager implements PurchasesUpdatedListener {
         }
 
         try {
-            return com.example.zufpilosof.assignment3.Security.verifyPurchase(BASE_64_ENCODED_PUBLIC_KEY, signedData, signature);
+            return com.mta.zufpilosof.assignment3.Security.verifyPurchase(BASE_64_ENCODED_PUBLIC_KEY, signedData, signature);
         } catch (IOException e) {
             Log.e(TAG, "Got an exception trying to validate a purchase: " + e);
             return false;

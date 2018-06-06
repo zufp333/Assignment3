@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3.model;
+package com.mta.zufpilosof.assignment3.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

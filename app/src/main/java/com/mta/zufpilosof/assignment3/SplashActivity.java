@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3;
+package com.mta.zufpilosof.assignment3;
 
 import android.os.Handler;
 import android.app.Activity;

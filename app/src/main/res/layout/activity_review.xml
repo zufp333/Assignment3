@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.zufpilosof.assignment3.ReviewActivity">
+    tools:context="com.mta.zufpilosof.assignment3.ReviewActivity">
 
     <EditText
         android:id="@+id/new_user_review"

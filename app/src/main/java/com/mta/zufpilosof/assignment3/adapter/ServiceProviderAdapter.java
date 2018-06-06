@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3.adapter;
+package com.mta.zufpilosof.assignment3.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,19 +13,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.zufpilosof.assignment3.model.ServiceProvider;
+import com.mta.zufpilosof.assignment3.model.ServiceProvider;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.example.zufpilosof.assignment3.R;
-import com.example.zufpilosof.assignment3.ServiceProviderDetailsActivity;
-import com.example.zufpilosof.assignment3.model.User;
+import com.mta.zufpilosof.assignment3.R;
+import com.mta.zufpilosof.assignment3.ServiceProviderDetailsActivity;
+import com.mta.zufpilosof.assignment3.model.User;
 
 import java.util.Iterator;
 import java.util.List;
 
-public class ServiceProviderAdapter extends RecyclerView.Adapter<com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter.ServiceProviderViewHolder> {
+public class ServiceProviderAdapter extends RecyclerView.Adapter<com.mta.zufpilosof.assignment3.adapter.ServiceProviderAdapter.ServiceProviderViewHolder> {
 
     private final String TAG = "ServiceProviderAdapter";
 

@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3.model;
+package com.mta.zufpilosof.assignment3.model;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;

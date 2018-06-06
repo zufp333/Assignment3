@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3.adapter;
+package com.mta.zufpilosof.assignment3.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.zufpilosof.assignment3.R;
-import com.example.zufpilosof.assignment3.model.Review;
+import com.mta.zufpilosof.assignment3.R;
+import com.mta.zufpilosof.assignment3.model.Review;
 
 import java.util.List;
 

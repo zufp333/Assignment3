@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3;
+package com.mta.zufpilosof.assignment3;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -26,10 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.example.zufpilosof.assignment3.adapter.ReviewsAdapter;
-import com.example.zufpilosof.assignment3.model.Review;
-import com.example.zufpilosof.assignment3.model.ServiceProvider;
-import com.example.zufpilosof.assignment3.model.User;
+import com.mta.zufpilosof.assignment3.adapter.ReviewsAdapter;
+import com.mta.zufpilosof.assignment3.model.Review;
+import com.mta.zufpilosof.assignment3.model.ServiceProvider;
+import com.mta.zufpilosof.assignment3.model.User;
 
 import java.util.ArrayList;
 import java.util.Iterator;

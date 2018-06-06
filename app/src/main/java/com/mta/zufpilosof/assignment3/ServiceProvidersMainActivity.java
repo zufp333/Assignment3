@@ -1,4 +1,4 @@
-package com.example.zufpilosof.assignment3;
+package com.mta.zufpilosof.assignment3;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.example.zufpilosof.assignment3.model.ServiceProvider;
+import com.mta.zufpilosof.assignment3.model.ServiceProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,9 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey;
-import com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter;
-import com.example.zufpilosof.assignment3.model.User;
+import com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey;
+import com.mta.zufpilosof.assignment3.adapter.ServiceProviderAdapter;
+import com.mta.zufpilosof.assignment3.model.User;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
     private void getAllServiceProviders() {
         mServiceProvidersList.clear();
-        mServiceProviderAdapter = new com.example.zufpilosof.assignment3.adapter.ServiceProviderAdapter(mServiceProvidersList, mMyUser);
+        mServiceProviderAdapter = new com.mta.zufpilosof.assignment3.adapter.ServiceProviderAdapter(mServiceProvidersList, mMyUser);
         mRecyclerView.setAdapter(mServiceProviderAdapter);
 
         getAllServiceProvidersUsingChildListeners();
@@ -144,7 +144,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
 
                 Log.e(TAG, "onChildAdded(service_providers) >> " + snapshot.getKey());
 
-                com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = new com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey(snapshot.getKey(),snapshot.getValue(ServiceProvider.class));
+                com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = new com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey(snapshot.getKey(),snapshot.getValue(ServiceProvider.class));
                 mServiceProvidersList.add(serviceProviderWithKey);
                 mRecyclerView.getAdapter().notifyDataSetChanged();
 
@@ -160,7 +160,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 String key = snapshot.getKey();
 
                 for (int sp = 0; sp < mServiceProvidersList.size() ; sp++) {
-                    com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
+                    com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
                     if (serviceProviderWithKey.getKey().equals(snapshot.getKey())) {
                         serviceProviderWithKey.setServiceProvider(serciveProvider);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -189,7 +189,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
                 String key = snapshot.getKey();
 
                 for (int sp = 0; sp < mServiceProvidersList.size() ; sp++) {
-                    com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
+                    com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey serviceProviderWithKey = (com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey) mServiceProvidersList.get(sp);
                     if (serviceProviderWithKey.getKey().equals(snapshot.getKey())) {
                         mServiceProvidersList.remove(sp);
                         mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -217,7 +217,7 @@ public class ServiceProvidersMainActivity extends AppCompatActivity {
             ServiceProvider serviceProvider = dataSnapshot.getValue(ServiceProvider.class);
             Log.e(TAG, "updateServiceProvidersList() >> adding service provider: " + serviceProvider.getName());
             String key = dataSnapshot.getKey();
-            mServiceProvidersList.add(new com.example.zufpilosof.assignment3.adapter.ServiceProviderWithKey(key,serviceProvider));
+            mServiceProvidersList.add(new com.mta.zufpilosof.assignment3.adapter.ServiceProviderWithKey(key,serviceProvider));
         }
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
